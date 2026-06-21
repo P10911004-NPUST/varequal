@@ -1,0 +1,19 @@
+Package: varequal
+Title: Tests and Measures for Homoscedasticity Assessment
+Version: 0.0.1
+Authors@R: 
+    person("Joon-Keat", "Lai", , "p10911004@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-9840-5836"))
+Description: Provides statistical methods for assessing homoscedasticity
+    (equality of variances) across groups. The package implements
+    classical and robust tests for variance homogeneity, together with
+    supporting measures and utilities for exploratory analysis and
+    hypothesis testing. These tools can be used as diagnostic procedures
+    prior to analyses that assume equal variances.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
