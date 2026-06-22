@@ -47,6 +47,9 @@ tidy_to_dataframe <- function(data, formula = NULL)
         )
         ret <- do.call(rbind.data.frame, lst)
         ret <- ret[stats::complete.cases(ret[["y"]]), ]
+        ret[["x"]] <- as.character(ret[["x"]])
+        attr(ret, "x_name") <- "IV"
+        attr(ret, "y_name") <- "DV"
     }
 
     if (is.data.frame(data))
@@ -58,6 +61,8 @@ tidy_to_dataframe <- function(data, formula = NULL)
         colnames(df0) <- c("y", "x")
         df0[["x"]] <- as.character(df0[["x"]])
         ret <- df0[stats::complete.cases(df0[["y"]]), ]
+        attr(ret, "x_name") <- x_name
+        attr(ret, "y_name") <- y_name
     }
 
     return(ret)

@@ -52,7 +52,7 @@ plasma_etching <- data.frame(
                   565, 593, 590, 579, 610,
                   600, 651, 610, 637, 629,
                   725, 700, 715, 685, 710),
-    power = rep(c(160, 180, 200, 220), each = 5)
+    power = as.character(rep(c(160, 180, 200, 220), each = 5))
 )
 Levene_test(plasma_etching, etch_rate ~ power)
 }

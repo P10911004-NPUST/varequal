@@ -27,7 +27,7 @@
 #'                   565, 593, 590, 579, 610,
 #'                   600, 651, 610, 637, 629,
 #'                   725, 700, 715, 685, 710),
-#'     power = rep(c(160, 180, 200, 220), each = 5)
+#'     power = as.character(rep(c(160, 180, 200, 220), each = 5))
 #' )
 #' Brown_Forsythe_test(plasma_etching, etch_rate ~ power)
 #' @references
@@ -79,7 +79,7 @@ Brown_Forsythe_test <- function(
         method = "Brown-Forsythe homogeneity of variance test",
         is_var_equal = (pval > alpha),
         alpha = alpha,
-        alternative = "greater",
+        alternative = "two.sided",
         statistic = c("F" = Fval),
         pvalue = pval
     )
@@ -94,7 +94,7 @@ Brown_Forsythe_test <- function(
                 FUN.VALUE = numeric(length(unique(x)))
             )
         )
-        colnames(tab) <- c("N", "AVG", "Median", "MIN", "MAX", "SD")
+        colnames(tab) <- c("N", "AVG", "MED", "MIN", "MAX", "SD")
         ret[["summary"]] <- tab
     }
 

@@ -34,7 +34,7 @@ devtools::install_github("P10911004-NPUST/varequal")
 
 # TODO
 
-- [ ] Ansari-Bradley test
+- [x] Ansari-Bradley test
   - [Ansari & Bradley, 1960](http://www.jstor.org/stable/2237814)
 - [ ] Moses test
   - [Moses, 1963](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-34/issue-3/Rank-Tests-of-Dispersion/10.1214/aoms/1177704020.full)
@@ -44,7 +44,7 @@ devtools::install_github("P10911004-NPUST/varequal")
 - [x] Brown-Forsythe test
 - [ ] Cochran C test
 - [ ] Cochran G test
-  - [Lam, 2010](https://www.sciencedirect.com/science/article/abs/pii/S0003267009015177?via%3Dihub)
+  - [Lam, 2010](https://doi.org/10.1016/j.aca.2009.11.032)
 - [ ] Fligner-Killeen test
   - [Fligner & Killeen, 1974](https://www.tandfonline.com/doi/abs/10.1080/01621459.1976.10481517)
 - [ ] Hartley's test
