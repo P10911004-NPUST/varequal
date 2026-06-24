@@ -9,7 +9,7 @@ Fligner_Killeen_test(
   formula,
   alpha = 0.05,
   silent = FALSE,
-  summary = TRUE,
+  summary = FALSE,
   misc = FALSE
 )
 }
@@ -25,8 +25,8 @@ between 0 and 1. Default is 0.05.}
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
 
-\item{summary}{A logical value. If \code{TRUE} (default), a summary table
-of the test results is returned.}
+\item{summary}{A logical value (default: \code{FALSE}). If \code{TRUE}, a summary table
+for the input data is returned.}
 
 \item{misc}{A logical value. If \code{FALSE} (default), only essential
 parameters are returned. If \code{TRUE}, additional auxiliary
@@ -47,7 +47,7 @@ plasma_etching <- data.frame(
                   565, 593, 590, 579, 610,
                   600, 651, 610, 637, 629,
                   725, 700, 715, 685, 710),
-    power = rep(c(160, 180, 200, 220), each = 5)
+    power = as.character(rep(c(160, 180, 200, 220), each = 5))
 )
 Fligner_Killeen_test(plasma_etching, etch_rate ~ power)
 }
@@ -56,7 +56,13 @@ Fligner, M. A., & Killeen, T. J. (1976).
 Distribution-free two-sample tests for scale.
 Journal of the American Statistical Association, 71(353), 210–213.
 https://doi.org/10.1080/01621459.1976.10481517
+
+Conover, W. J., Johnson, M. E., & Johnson, M. M. (1981).
+A comparative study of tests for homogeneity of variances, with applications
+to the outer continental shelf bidding data.
+Technometrics, 23, 351–361.
+https://doi.org/10.1080/00401706.1981.10487680
 }
 \seealso{
-\code{\link[stats:fligner.test]{stats::fligner.test()}}
+\link[=Ansari_Bradley_test]{stats::fligner.test}
 }
