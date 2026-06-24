@@ -9,8 +9,10 @@ Brown_Forsythe_test(
   formula,
   alpha = 0.05,
   silent = FALSE,
-  summary = TRUE,
-  misc = FALSE
+  summary = FALSE,
+  misc = FALSE,
+  transform = function(x) abs(x - stats::median(x)),
+  method = c("MBF", "BF")
 )
 }
 \arguments{
@@ -25,12 +27,17 @@ between 0 and 1. Default is 0.05.}
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
 
-\item{summary}{A logical value. If \code{TRUE} (default), a summary table
-of the test results is returned.}
+\item{summary}{A logical value (default: \code{FALSE}). If \code{TRUE}, a summary table
+for the input data is returned.}
 
 \item{misc}{A logical value. If \code{FALSE} (default), only essential
 parameters are returned. If \code{TRUE}, additional auxiliary
 parameters are included in the output.}
+
+\item{transform}{A function used to transform the response variable into
+deviations from a specified location measure.}
+
+\item{method}{A character specifying either \code{"MBF"} (default) or \code{"BF"}.}
 }
 \value{
 A list containing the test statistics, p-value, degrees of freedom,
@@ -39,25 +46,48 @@ depending on the values of \code{summary} and \code{misc}.
 }
 \description{
 Performs Brown-Forsythe test to assess the null hypothesis that the variances
-are equal across all groups (samples) defined by the independent variable. This
-test is essentially Levene's test using medians from the various groups.
+are equal across all groups (samples) defined by the independent variable.
+}
+\details{
+\code{transform}
+The concept is similar to ANOVA procedure (transform the response variable to
+residuals before analysis). Possible transformation are:
+\itemize{
+\item y' = |yi - ybar| (default)
+\item y' = (yi - ybar) ^ 2
+\item y' = ln((yi - ybar) ^ 2)
+\item y' = sqrt(|yi - ybar|)
+}
+
+The \code{ybar} could be either mean, median (default), or trimmed-mean.
+
+\code{method}
+\itemize{
+\item \code{"BF"}: The original Brown–Forsythe test proposed by Brown and Forsythe (1974),
+a modification of Levene's test that uses the median instead of the mean.
+\item \code{"MBF"} The modified Brown–Forsythe test proposed by Mehrotra (1997),
+which adjusts the degrees of freedom, consequently yields an approximate
+F-distribution with F(f1, f2) instead of F(k - 1, N - k).
+}
 }
 \examples{
-plasma_etching <- data.frame(
-    etch_rate = c(575, 542, 530, 539, 570,
-                  565, 593, 590, 579, 610,
-                  600, 651, 610, 637, 629,
-                  725, 700, 715, 685, 710),
-    power = as.character(rep(c(160, 180, 200, 220), each = 5))
-)
-Brown_Forsythe_test(plasma_etching, etch_rate ~ power)
+df0 <- roGFP[[1]]
+df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+Brown_Forsythe_test(df0, ro_index ~ grp)
+boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
 }
 \references{
 Brown, M. B., & Forsythe, A. B. (1974).
 Robust tests for the equality of variances.
 Journal of the American Statistical Association, 69(346), 364–367.
 https://doi.org/10.1080/01621459.1974.10482955
+
+Mehrotra, D. V. (1997).
+Improving the Brown–Forsythe solution to the generalized Behrens–Fisher problem.
+Communications in Statistics—Simulation and Computation, 26, 1139–1145.
+https://doi.org/10.1080/03610919708813431
 }
 \seealso{
-\code{\link[=Levene_test]{Levene_test()}}
+\link{Levene_test}
 }
