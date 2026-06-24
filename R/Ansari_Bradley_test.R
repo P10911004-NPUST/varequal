@@ -10,8 +10,8 @@
 #'        between 0 and 1. Default is 0.05.
 #' @param silent A logical value. If `FALSE` (default), results are
 #'        printed to the console. If `TRUE`, no output is printed.
-#' @param summary A logical value. If `TRUE` (default), a summary table
-#'        of the test results is returned.
+#' @param summary A logical value (default: `FALSE`). If `TRUE`, a summary table
+#'        for the input data is returned.
 #' @param misc A logical value. If `FALSE` (default), only essential
 #'        parameters are returned. If `TRUE`, additional auxiliary
 #'        parameters are included in the output.
@@ -26,14 +26,11 @@
 #' there are many tied values.
 #'
 #' @examples
-#' plasma_etching <- data.frame(
-#'     etch_rate = c(575, 542, 530, 539, 570,
-#'                   565, 593, 590, 579, 610,
-#'                   600, 651, 610, 637, 629,
-#'                   725, 700, 715, 685, 710),
-#'     power = as.character(rep(c(160, 180, 200, 220), each = 5))
-#' )
-#' Ansari_Bradley_test(plasma_etching, etch_rate ~ power)
+#' df0 <- roGFP[[3]]
+#' df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+#' out <- Ansari_Bradley_test(df0, ro_index ~ grp)
+#' boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+#' points(x = df0$ro_index, y = jitter(as.numeric(df0$grp), amount = 0.1))
 #' @references
 #' Ansari, A. R., & Bradley, R. A. (1960).
 #' Rank-sum tests for dispersions.
@@ -44,29 +41,31 @@
 #' to the outer continental shelf bidding data.
 #' Technometrics, 23, 351–361.
 #' https://doi.org/10.1080/00401706.1981.10487680
-#' @seealso [stats::ansari.test]
+#' @seealso [stats::ansari.test][Fligner_Killeen_test]
 #' @export
 Ansari_Bradley_test <- function(
         data,
         formula,
         alpha = 0.05,
         silent = FALSE,
-        summary = TRUE,
+        summary = FALSE,
         misc = FALSE
 ) {
     df0 <- tidy_to_dataframe(data, formula)
     x_name <- attr(df0, "x_name")
     y_name <- attr(df0, "y_name")
+    x <- df0[["x"]]
+    y <- df0[["y"]]
 
-    N <- length(df0[["y"]])
-    k <- length(unique(df0[["x"]]))
+    k <- length(unique(x))  # number of groups
+    N <- length(y)  # total sample size
 
-    z <- tapply(df0[["y"]], df0[["x"]], function(xi) xi - stats::median(xi))
-    df0[["Z(1..N)"]] <- unlist(z)
-    df0[["rank"]] <- rank(df0[["Z(1..N)"]])
-    df0 <- df0[order(df0[["rank"]]), ]
+    z <- tapply(y, x, function(j) j - stats::median(j))
+    df0[["y'"]] <- unlist(z)
+    df0[["rank"]] <- rank(df0[["y'"]])
 
-    # Formula in Table 4 (Score function of "F-A-B")
+    # Ranking from two sides to center
+    # Formula in Table 4 (Score function of "F-A-B") in Conover et al. (1981)
     df0[["a(N,i)"]] <- (N + 1) / 2 - abs(df0[["rank"]] - ((N + 1) / 2))
 
     ni <- c(tapply(df0[["y"]], df0[["x"]], length))
@@ -105,8 +104,8 @@ Ansari_Bradley_test <- function(
     {
         ret[["misc"]] <- list(
             "DF" = k - 1,
-            "ChiSq" = K2,
-            "ChiSq_crit" = K2_crit,
+            "ChiSquare" = K2,
+            "ChiSquare_crit" = K2_crit,
             "Ai_bar" = Ai_bar,
             "a_bar" = a_bar,
             "V2" = V2,
@@ -129,7 +128,7 @@ Ansari_Bradley_test <- function(
     invisible(ret)
 }
 
-#
+
 # .ansari_bradley_test <- function(x, y, alpha = 0.05, alternative = "two.sided")
 # {
 #     k <- 2 # number of groups

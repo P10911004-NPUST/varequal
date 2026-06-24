@@ -6,7 +6,6 @@ varequal_standard_output <- function(
         summary = NA,
         statistic = NA_real_,
         pvalue = NA_real_,
-        signif = "",
         ...
 ) {
     list(
@@ -16,7 +15,6 @@ varequal_standard_output <- function(
         "summary" = summary,
         "statistic" = statistic,
         "pvalue" = pvalue,
-        "signif" = signif,
         ...
     )
 }
@@ -64,6 +62,8 @@ tidy_to_dataframe <- function(data, formula = NULL)
         attr(ret, "x_name") <- x_name
         attr(ret, "y_name") <- y_name
     }
+
+    ret <- ret[order(ret[["x"]]), ]
 
     return(ret)
 }

@@ -9,7 +9,7 @@ Ansari_Bradley_test(
   formula,
   alpha = 0.05,
   silent = FALSE,
-  summary = TRUE,
+  summary = FALSE,
   misc = FALSE
 )
 }
@@ -25,8 +25,8 @@ between 0 and 1. Default is 0.05.}
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
 
-\item{summary}{A logical value. If \code{TRUE} (default), a summary table
-of the test results is returned.}
+\item{summary}{A logical value (default: \code{FALSE}). If \code{TRUE}, a summary table
+for the input data is returned.}
 
 \item{misc}{A logical value. If \code{FALSE} (default), only essential
 parameters are returned. If \code{TRUE}, additional auxiliary
@@ -47,14 +47,11 @@ test. Results may be inaccurate for small total sample sizes (N < 20) or when
 there are many tied values.
 }
 \examples{
-plasma_etching <- data.frame(
-    etch_rate = c(575, 542, 530, 539, 570,
-                  565, 593, 590, 579, 610,
-                  600, 651, 610, 637, 629,
-                  725, 700, 715, 685, 710),
-    power = as.character(rep(c(160, 180, 200, 220), each = 5))
-)
-Ansari_Bradley_test(plasma_etching, etch_rate ~ power)
+df0 <- roGFP[[3]]
+df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+out <- Ansari_Bradley_test(df0, ro_index ~ grp)
+boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+points(x = df0$ro_index, y = jitter(as.numeric(df0$grp), amount = 0.1))
 }
 \references{
 Ansari, A. R., & Bradley, R. A. (1960).
@@ -68,5 +65,5 @@ Technometrics, 23, 351–361.
 https://doi.org/10.1080/00401706.1981.10487680
 }
 \seealso{
-\link[stats:ansari.test]{stats::ansari.test}
+\link[=Fligner_Killeen_test]{stats::ansari.test}
 }
