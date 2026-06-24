@@ -8,10 +8,10 @@ Levene_test(
   data,
   formula,
   alpha = 0.05,
-  func = stats::median,
   silent = FALSE,
-  summary = TRUE,
-  misc = FALSE
+  summary = FALSE,
+  misc = FALSE,
+  transform = function(x) abs(x - stats::median(x))
 )
 }
 \arguments{
@@ -23,19 +23,18 @@ Levene_test(
 \item{alpha}{A numeric value specifying the significance level. Must be
 between 0 and 1. Default is 0.05.}
 
-\item{func}{A function used to compute the measure of central tendency for
-each group. By default, \code{stats::median()} is used, making the resulting
-test equivalent to \code{Brown_Forsythe_test()}.}
-
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
 
-\item{summary}{A logical value. If \code{TRUE} (default), a summary table
-of the test results is returned.}
+\item{summary}{A logical value (default: \code{FALSE}). If \code{TRUE}, a summary table
+for the input data is returned.}
 
 \item{misc}{A logical value. If \code{FALSE} (default), only essential
 parameters are returned. If \code{TRUE}, additional auxiliary
 parameters are included in the output.}
+
+\item{transform}{A function used to transform the response variable into
+deviations from a specified location measure.}
 }
 \value{
 A list containing the test statistics, p-value, degrees of freedom,
@@ -45,6 +44,19 @@ depending on the values of \code{summary} and \code{misc}.
 \description{
 Performs Levene's test to assess the null hypothesis that the variances
 are equal across all groups (samples) defined by the independent variable.
+}
+\details{
+\code{transform}:
+The concept is similar to ANOVA procedure (transform the response variable to
+residuals before analysis). Possible transformation are:
+\itemize{
+\item y' = |yi - ybar| (default)
+\item y' = (yi - ybar) ^ 2
+\item y' = ln((yi - ybar) ^ 2)
+\item y' = sqrt(|yi - ybar|)
+}
+
+The \code{ybar} could be either mean, median (default), or trimmed-mean.
 }
 \examples{
 plasma_etching <- data.frame(
@@ -62,11 +74,16 @@ Robust tests for equality of variances. In I. Olkin (Ed.),
 Contributions to probability and statistics: Essays in honor of Harold Hotelling
 (pp. 278–292). Stanford University Press.
 
+Sharma, D., & Kibria, B. M. G. (2013).
+On some test statistics for testing homogeneity of variances: A comparative study.
+Journal of Statistical Computation and Simulation, 83, 1944–1963.
+https://doi.org/10.1080/00949655.2012.675336
+
 Zhou, Y., Zhu, Y., & Wong, W. K. (2023).
 Statistical tests for homogeneity of variance for clinical trials and recommendations.
 Contemporary Clinical Trials Communications, 33, 101119.
 https://doi.org/10.1016/j.conctc.2023.101119
 }
 \seealso{
-\code{\link[=Brown_Forsythe_test]{Brown_Forsythe_test()}}
+\link{Brown_Forsythe_test}
 }

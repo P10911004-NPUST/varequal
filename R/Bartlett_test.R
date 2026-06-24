@@ -1,7 +1,9 @@
 #' Bartlett's Test of Homogeneity of Variances
 #'
-#' Performs Bartlett's test to assess the null hypothesis that the variances
+#' Performs Bartlett's test to assess the null hypothesis that variances
 #' are equal across all groups (samples) defined by the independent variable.
+#' This test assumes that the data within each group are normally distributed
+#' and is sensitive to departures from normality.
 #'
 #' @param data A data frame containing the variables specified in the formula.
 #' @param formula A formula of the form `DV ~ IV`, where `DV` is the dependent
@@ -10,8 +12,8 @@
 #'        between 0 and 1. Default is 0.05.
 #' @param silent A logical value. If `FALSE` (default), results are
 #'        printed to the console. If `TRUE`, no output is printed.
-#' @param summary A logical value. If `TRUE` (default), a summary table
-#'        of the test results is returned.
+#' @param summary A logical value (default: `FALSE`). If `TRUE`, a summary table
+#'        for the input data is returned.
 #' @param misc A logical value. If `FALSE` (default), only essential
 #'        parameters are returned. If `TRUE`, additional auxiliary
 #'        parameters are included in the output.
@@ -46,17 +48,19 @@ Bartlett_test <- function(
         formula,
         alpha = 0.05,
         silent = FALSE,
-        summary = TRUE,
+        summary = FALSE,
         misc = FALSE
 ) {
     df0 <- tidy_to_dataframe(data, formula)
     x_name <- colnames(df0)[2]
     y_name <- colnames(df0)[1]
+    x <- df0[["x"]]
+    y <- df0[["y"]]
 
-    k <- length(unique(df0[["x"]])) # number of groups
-    ni <- c(tapply(df0[["y"]], df0[["x"]], length)) # sample size of each groups
+    k <- length(unique(x)) # number of groups
+    ni <- tapply(y, x, length) # sample size of each groups
     N <- sum(ni) # total sample size
-    Si2 <- c(tapply(df0[["y"]], df0[["x"]], stats::var)) # variance of each groups
+    Si2 <- tapply(y, x, stats::var) # variance of each groups
     Sp2 <- sum((ni - 1) * Si2) / (N - k)
     q <- (N - k) * log(Sp2, 10) - sum((ni - 1) * log(Si2, 10))
     c_ <- 1 + (1 / (3 * (k - 1))) * (sum(1 / (ni - 1)) - (1 / (N - k)))
@@ -92,8 +96,8 @@ Bartlett_test <- function(
         ret[["misc"]] <- list(
             "SD_pooled" = Sp2,
             "DF" = k - 1,
-            "ChiSq" = K2,
-            "ChiSq_crit" = K2_crit,
+            "ChiSquare" = K2,
+            "ChiSquare_crit" = K2_crit,
             "q" = q,
             "c" = c_
         )

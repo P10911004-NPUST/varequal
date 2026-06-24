@@ -9,7 +9,7 @@ Bartlett_test(
   formula,
   alpha = 0.05,
   silent = FALSE,
-  summary = TRUE,
+  summary = FALSE,
   misc = FALSE
 )
 }
@@ -25,8 +25,8 @@ between 0 and 1. Default is 0.05.}
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
 
-\item{summary}{A logical value. If \code{TRUE} (default), a summary table
-of the test results is returned.}
+\item{summary}{A logical value (default: \code{FALSE}). If \code{TRUE}, a summary table
+for the input data is returned.}
 
 \item{misc}{A logical value. If \code{FALSE} (default), only essential
 parameters are returned. If \code{TRUE}, additional auxiliary
@@ -38,8 +38,10 @@ and optionally a summary table and/or auxiliary parameters,
 depending on the values of \code{summary} and \code{misc}.
 }
 \description{
-Performs Bartlett's test to assess the null hypothesis that the variances
+Performs Bartlett's test to assess the null hypothesis that variances
 are equal across all groups (samples) defined by the independent variable.
+This test assumes that the data within each group are normally distributed
+and is sensitive to departures from normality.
 }
 \examples{
 plasma_etching <- data.frame(
