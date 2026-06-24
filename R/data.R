@@ -1,25 +1,28 @@
-fruits <- data.frame(
-    val = c(
-        stats::rnorm(10, 0, 1),
-        stats::rnorm(10, 1, 1),
-        stats::rnorm(10, 2, 1),
-        stats::rnorm(15, 2, 2),
-        stats::rnorm(20, 3, 3),
-        stats::rnorm(25, 4, 1),
-        stats::rnorm(15, 1, 3),
-        stats::rnorm(20, 2, 2)
-    ),
-    grp = c(
-        rep(   "Apple", 10),
-        rep(  "Banana", 10),
-        rep( "Coconut", 10),
-        rep(  "Durian", 15),
-        rep("Eggfruit", 20),
-        rep(     "Fig", 25),
-        rep(   "Guava", 15),
-        rep("Honeydew", 20)
-    )
-)
+#' Cell number
+#'
+#' A dataset containing cortex cell counts within the meristematic zone of roots
+#' in an *Arabidopsis thaliana* transgenic plant (CYCB1;3-GFP).
+#'
+#' @format A list containing three data frames, each representing a different experimental batch:
+#' \describe{
+#'   \item{TEMP}{Air temperature in degrees Celsius}
+#'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0 nM, 5 nM)}
+#'   \item{cell_num}{Number of meristematic root cells}
+#' }
+"CYCB1"
 
 
-
+#' RO index
+#'
+#' A dataset containing the reduced–oxidized (RO) index computed from confocal
+#' fluorescence images of roots of an *Arabidopsis thaliana* transgenic plant
+#' (cytRGX–roGFP2).
+#'
+#' @format A list containing three data frames, each representing a different experimental batch:
+#' \describe{
+#'   \item{TEMP}{Air temperature in degrees Celsius}
+#'   \item{DAT}{Days after treatment or transfer}
+#'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0 nM, 5 nM)}
+#'   \item{ro_index}{Redox index ranging from -1 (reduced) to 1 (oxidized)}
+#' }
+"roGFP"
