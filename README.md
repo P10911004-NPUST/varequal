@@ -19,7 +19,7 @@ You can install the package from [CRAN](https://cran.r-project.org/package=vareq
 install.packages("varequal")
 ```
 
-or the developmental version from [GitHub](https://github.com/P10911004-NPUST/varequal) with:
+or the development version from [GitHub](https://github.com/P10911004-NPUST/varequal) with:
 
 ``` r
 if (!require("devtools")) install.packages("devtools")
@@ -45,7 +45,7 @@ devtools::install_github("P10911004-NPUST/varequal")
 - [ ] Cochran C test
 - [ ] Cochran G test
   - [Lam, 2010](https://doi.org/10.1016/j.aca.2009.11.032)
-- [ ] Fligner-Killeen test
+- [x] Fligner-Killeen test
   - [Fligner & Killeen, 1974](https://www.tandfonline.com/doi/abs/10.1080/01621459.1976.10481517)
 - [ ] Hartley's test
   - [Frey, 2010](https://doi.org/10.1002/cjs.10069)

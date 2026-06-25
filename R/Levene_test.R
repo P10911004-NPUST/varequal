@@ -30,20 +30,22 @@
 #'
 #' The `ybar` could be either mean, median (default), or trimmed-mean.
 #'
-#'
 #' @return A list containing the test statistics, p-value, degrees of freedom,
 #'         and optionally a summary table and/or auxiliary parameters,
 #'         depending on the values of `summary` and `misc`.
 #'
 #' @examples
-#' plasma_etching <- data.frame(
-#'     etch_rate = c(575, 542, 530, 539, 570,
-#'                   565, 593, 590, 579, 610,
-#'                   600, 651, 610, 637, 629,
-#'                   725, 700, 715, 685, 710),
-#'     power = as.character(rep(c(160, 180, 200, 220), each = 5))
-#' )
-#' Levene_test(plasma_etching, etch_rate ~ power)
+#' df0 <- roGFP[[1]]
+#' df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+#' Levene_test(df0, ro_index ~ grp)
+#' boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+#' points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+#'
+#' df0 <- roGFP[[2]]
+#' df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+#' Levene_test(df0, ro_index ~ grp)
+#' boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+#' points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
 #' @references
 #' Levene, H. (1960).
 #' Robust tests for equality of variances. In I. Olkin (Ed.),

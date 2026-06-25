@@ -1,0 +1,67 @@
+test_that("Fligner_Killeen_test", {
+    df0 <- roGFP[[1]]
+    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+    out <- Fligner_Killeen_test(df0, ro_index ~ grp)
+    Fval <- round(out[["statistic"]][["ChiSquare"]], 6)
+    pval <- round(out[["pvalue"]], 7)
+    fk <- stats::fligner.test(ro_index ~ grp, df0)
+    testthat::expect_equal(Fval, round(unname(fk$statistic), 6))
+    testthat::expect_equal(pval, round(fk$p.value, 7))
+    boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+    points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+
+    df0 <- roGFP[[2]]
+    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+    out <- Fligner_Killeen_test(df0, ro_index ~ grp)
+    Fval <- round(out[["statistic"]][["ChiSquare"]], 6)
+    pval <- round(out[["pvalue"]], 7)
+    fk <- stats::fligner.test(ro_index ~ grp, df0)
+    testthat::expect_equal(Fval, round(unname(fk$statistic), 6))
+    testthat::expect_equal(pval, round(fk$p.value, 7))
+    boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+    points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+
+    df0 <- roGFP[[3]]
+    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+    out <- Fligner_Killeen_test(df0, ro_index ~ grp)
+    Fval <- round(out[["statistic"]][["ChiSquare"]], 6)
+    pval <- round(out[["pvalue"]], 7)
+    fk <- stats::fligner.test(ro_index ~ grp, df0)
+    testthat::expect_equal(Fval, round(unname(fk$statistic), 6))
+    testthat::expect_equal(pval, round(fk$p.value, 7))
+    boxplot(ro_index ~ grp, df0, horizontal = TRUE)
+    points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+
+    df0 <- CYCB1[[1]]
+    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+    out <- Fligner_Killeen_test(df0, cell_num ~ grp)
+    Fval <- round(out[["statistic"]][["ChiSquare"]], 6)
+    pval <- round(out[["pvalue"]], 7)
+    fk <- stats::fligner.test(cell_num ~ grp, df0)
+    testthat::expect_equal(Fval, round(unname(fk$statistic), 6))
+    testthat::expect_equal(pval, round(fk$p.value, 7))
+    boxplot(cell_num ~ grp, df0, horizontal = TRUE)
+    points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
+
+    df0 <- CYCB1[[2]]
+    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+    out <- Fligner_Killeen_test(df0, cell_num ~ grp)
+    Fval <- round(out[["statistic"]][["ChiSquare"]], 6)
+    pval <- round(out[["pvalue"]], 7)
+    fk <- stats::fligner.test(cell_num ~ grp, df0)
+    testthat::expect_equal(Fval, round(unname(fk$statistic), 6))
+    testthat::expect_equal(pval, round(fk$p.value, 7))
+    boxplot(cell_num ~ grp, df0, horizontal = TRUE)
+    points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
+
+    df0 <- CYCB1[[3]]
+    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
+    out <- Fligner_Killeen_test(df0, cell_num ~ grp)
+    Fval <- round(out[["statistic"]][["ChiSquare"]], 6)
+    pval <- round(out[["pvalue"]], 7)
+    fk <- stats::fligner.test(cell_num ~ grp, df0)
+    testthat::expect_equal(Fval, round(unname(fk$statistic), 6))
+    testthat::expect_equal(pval, round(fk$p.value, 7))
+    boxplot(cell_num ~ grp, df0, horizontal = TRUE)
+    points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
+})
