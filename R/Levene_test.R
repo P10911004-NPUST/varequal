@@ -36,16 +36,9 @@
 #'
 #' @examples
 #' df0 <- roGFP[[1]]
-#' df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-#' Levene_test(df0, ro_index ~ grp)
-#' boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-#' points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
-#'
-#' df0 <- roGFP[[2]]
-#' df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-#' Levene_test(df0, ro_index ~ grp)
-#' boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-#' points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+#' out <- Levene_test(df0, ro ~ grp)
+#' boxplot(ro ~ grp, df0, horizontal = TRUE)
+#' points(x = df0$ro, y = jitter(as.numeric(df0$grp), amount = 0.15))
 #' @references
 #' Levene, H. (1960).
 #' Robust tests for equality of variances. In I. Olkin (Ed.),
@@ -92,21 +85,32 @@ Levene_test <- function(
     N <- length(y)  # total sample size
 
     y_prime <- tapply(y, x, transform)
-    df0[["y'"]] <- unlist(y_prime, use.names = FALSE)
-
     ni <- unlist(lapply(y_prime, length))
+    is_balance <- (length(unique(ni)) == 1)
+
     grp_var <- unlist(lapply(y_prime, stats::var))
-    grp_mean <- unlist(lapply(y_prime, mean))
-    grand_mean <- mean(df0[["y'"]])
+    grp_means <- unlist(lapply(y_prime, mean))
+
+    yij <- unlist(y_prime, use.names = FALSE)
+    df0[["y'"]] <- yij
+    grand_mean <- mean(yij)
+    yi <- tapply(yij, x, sum)
+    y_total <- sum(yij)
 
     DF_between <- k - 1
     DF_within <- N - k
     DF_total <- N - 1
 
-    SS_between <- sum(ni * (grp_mean - grand_mean) ^ 2)
-    SS_within <- sum((ni - 1) * grp_var)
-    # SS_within <- sum( tapply(y_prime, x, function(j) sum((j - mean(j)) ^ 2)) )
-    SS_total <- SS_between + SS_within
+    if (isTRUE(is_balance))
+    {
+        SS_total <- sum((yij - grand_mean) ^ 2)
+        SS_between <- mean(ni) * sum((grp_means - grand_mean) ^ 2)
+        SS_within <- SS_total - SS_between
+    } else {
+        SS_total <- sum(yij ^ 2) - (y_total ^ 2 / N)
+        SS_between <- sum(yi ^ 2 / ni) - (y_total ^ 2 / N)
+        SS_within <- SS_total - SS_between
+    }
 
     MS_between <- SS_between / DF_between
     MS_within <- SS_within / DF_within

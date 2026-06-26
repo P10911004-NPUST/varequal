@@ -69,6 +69,15 @@ tidy_to_dataframe <- function(data, formula = NULL)
 }
 
 
+is_balance <- function(data, formula, buffer_rate = 0.2)
+{
+    df0 <- tidy_to_dataframe(data, formula)
+    ni <- with(df0, tapply(y, x, length))
+    ni_diff <- upper.tri(outer(ni, ni, `-`))
+    return(ni_diff)
+}
+
+
 pval2asterisk <- function(x, alpha = 0.05)
 {
     vapply(

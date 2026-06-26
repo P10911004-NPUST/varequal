@@ -9,7 +9,9 @@ A list containing three data frames, each representing a different experimental 
 \describe{
 \item{TEMP}{Air temperature in degrees Celsius}
 \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0 nM, 5 nM)}
-\item{cell_num}{Number of meristematic root cells}
+\item{treatment}{TEMP x RGF1 -> 4 groups of treatments}
+\item{grp}{Handy labels for each treatment (A, B, C, D)}
+\item{cells}{Number of meristematic root cells}
 }
 }
 \usage{

@@ -60,16 +60,9 @@ The \code{ybar} could be either mean, median (default), or trimmed-mean.
 }
 \examples{
 df0 <- roGFP[[1]]
-df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-Levene_test(df0, ro_index ~ grp)
-boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
-
-df0 <- roGFP[[2]]
-df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-Levene_test(df0, ro_index ~ grp)
-boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+out <- Levene_test(df0, ro ~ grp)
+boxplot(ro ~ grp, df0, horizontal = TRUE)
+points(x = df0$ro, y = jitter(as.numeric(df0$grp), amount = 0.15))
 }
 \references{
 Levene, H. (1960).

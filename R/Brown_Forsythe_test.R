@@ -35,8 +35,10 @@
 #' - `"BF"`: The original Brown–Forsythe test proposed by Brown and Forsythe (1974),
 #'   a modification of Levene's test that uses the median instead of the mean.
 #' - `"MBF"` The modified Brown–Forsythe test proposed by Mehrotra (1997),
-#'   which adjusts the degrees of freedom, consequently yields an approximate
-#'   F-distribution with F(f1, f2) instead of F(k - 1, N - k).
+#'   which adjusts the degrees of freedom and consequently yields an approximate
+#'   F-distribution of F(f1, f2) rather than F(k - 1, N - k). Compared with the
+#'   original version (`BF`), this modification tends to reduce the Type I error
+#'   rate at the cost of a higher Type II error rate.
 #'
 #' @return A list containing the test statistics, p-value, degrees of freedom,
 #'         and optionally a summary table and/or auxiliary parameters,
@@ -44,10 +46,9 @@
 #'
 #' @examples
 #' df0 <- roGFP[[1]]
-#' df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-#' Brown_Forsythe_test(df0, ro_index ~ grp)
-#' boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-#' points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+#' out <- Brown_Forsythe_test(df0, ro ~ grp)
+#' boxplot(ro ~ grp, df0, horizontal = TRUE)
+#' points(x = df0$ro, y = jitter(as.numeric(df0$grp), amount = 0.15))
 #' @references
 #' Brown, M. B., & Forsythe, A. B. (1974).
 #' Robust tests for the equality of variances.
@@ -92,12 +93,13 @@ Brown_Forsythe_test <- function(
     N <- length(y)  # total sample size
 
     y_prime <- tapply(y, x, transform)
-    df0[["y'"]] <- unlist(y_prime, use.names = FALSE)
+    yij <- unlist(y_prime, use.names = FALSE)
+    df0[["y'"]] <- yij
 
     ni <- unlist(lapply(y_prime, length))
     grp_var <- unlist(lapply(y_prime, stats::var))
     grp_mean <- unlist(lapply(y_prime, mean))
-    grand_mean <- mean(df0[["y'"]])
+    grand_mean <- mean(yij)
 
     #--------------------------------------------------------------------------#
     #                    Degree of freedom modification                        #
@@ -128,6 +130,7 @@ Brown_Forsythe_test <- function(
 
     MS_between <- sum(ni * (grp_mean - grand_mean) ^ 2)
     MS_within <- sum((1 - ni / N) * grp_var)
+
     SS_between <- MS_between * DF_between
     SS_within <- MS_within * DF_within
     SS_total <- SS_between + SS_within

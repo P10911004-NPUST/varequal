@@ -47,11 +47,10 @@ test. Results may be inaccurate for small total sample sizes (N < 20) or when
 there are many tied values.
 }
 \examples{
-df0 <- roGFP[[3]]
-df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-Ansari_Bradley_test(df0, ro_index ~ grp)
-boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-points(x = df0$ro_index, y = jitter(as.numeric(df0$grp), amount = 0.15))
+df0 <- CYCB1[[1]]
+out <- Ansari_Bradley_test(df0, cells ~ grp)
+boxplot(cells ~ grp, df0, horizontal = TRUE)
+points(x = df0$cells, y = jitter(as.numeric(df0$grp), amount = 0.15))
 }
 \references{
 Ansari, A. R., & Bradley, R. A. (1960).

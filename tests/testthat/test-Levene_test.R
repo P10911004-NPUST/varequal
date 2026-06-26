@@ -1,51 +1,39 @@
 test_that("Levene_test", {
-    df0 <- roGFP[[1]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Levene_test(df0, ro_index ~ grp)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 3.183717)
-    testthat::expect_equal(pval, 0.0325032)
-    # boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-    # points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+    #--------------------------------------------------------------------------#
+    #                        Test on dataset: roGFP                            #
+    #--------------------------------------------------------------------------#
+    answer_Fval <- c(3.183717, 1.518332, 3.47185)
+    answer_pval <- c(0.0325032, 0.216684, 0.0232738)
+    for (i in 1:3)
+    {
+        df0 <- roGFP[[i]]
+        out <- Levene_test(df0, ro ~ grp, silent = TRUE)
+        Fval <- round(out[["statistic"]][["F"]], 6)
+        pval <- round(out[["pvalue"]], 7)
+        testthat::expect_equal(Fval, answer_Fval[i])
+        testthat::expect_equal(pval, answer_pval[i])
 
-    df0 <- roGFP[[2]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Levene_test(df0, ro_index ~ grp)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 1.518332)
-    testthat::expect_equal(pval, 0.216684)
-    # boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-    # points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+        # title <- sprintf("F = %s;  p = %s", Fval, pval)
+        # boxplot(ro ~ grp, df0, horizontal = TRUE, main = title)
+        # points(df0$ro, jitter(as.numeric(df0$grp), amount = 0.15))
+    }
 
-    df0 <- roGFP[[3]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Levene_test(df0, ro_index ~ grp)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 3.47185)
-    testthat::expect_equal(pval, 0.0232738)
-    # boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-    # points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+    #--------------------------------------------------------------------------#
+    #                        Test on dataset: CYCB1                            #
+    #--------------------------------------------------------------------------#
+    answer_Fval <- c(4.096162, 2.416869, 2.296763)
+    answer_pval <- c(0.0105778, 0.0747738, 0.0867113)
+    for (i in 1:3)
+    {
+        df0 <- CYCB1[[i]]
+        out <- Levene_test(df0, cells ~ grp, silent = TRUE)
+        Fval <- round(out[["statistic"]][["F"]], 6)
+        pval <- round(out[["pvalue"]], 7)
+        testthat::expect_equal(Fval, answer_Fval[i])
+        testthat::expect_equal(pval, answer_pval[i])
 
-    df0 <- CYCB1[[1]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Levene_test(df0, cell_num ~ grp, transform = function(x) abs(x - mean(x)))
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 6.327024)
-    testthat::expect_equal(pval, 0.0008857)
-    # boxplot(cell_num ~ grp, df0, horizontal = TRUE)
-    # points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
-
-    df0 <- CYCB1[[2]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Levene_test(df0, cell_num ~ grp, transform = function(x) (x - mean(x, trim = 0.1)) ^ 2)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 2.855829)
-    testthat::expect_equal(pval, 0.0442163)
-    # boxplot(cell_num ~ grp, df0, horizontal = TRUE)
-    # points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
+        # title <- sprintf("F = %s;  p = %s", Fval, pval)
+        # boxplot(cells ~ grp, df0, horizontal = TRUE, main = title)
+        # points(df0$cells, jitter(as.numeric(df0$grp), amount = 0.15))
+    }
 })

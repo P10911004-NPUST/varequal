@@ -4,14 +4,18 @@ test_that("Bartlett_test", {
                       565, 593, 590, 579, 610,
                       600, 651, 610, 637, 629,
                       725, 700, 715, 685, 710),
-        power = rep(c(160, 180, 200, 220), each = 5)
+        power = as.factor(rep(c(160, 180, 200, 220), each = 5))
     )
 
-    out <- Bartlett_test(plasma_etching, etch_rate ~ power, misc = TRUE)
+    out <- Bartlett_test(plasma_etching, etch_rate ~ power, silent = TRUE, misc = TRUE)
     q <- round(out[["misc"]][["q"]], 2)
     c_ <- round(out[["misc"]][["c"]], 2)
     K2 <- round(out[["statistic"]][["ChiSquare"]], 2)
     testthat::expect_equal(q, 0.21)
     testthat::expect_equal(c_, 1.10)
     testthat::expect_equal(K2, 0.43)
+
+    # title <- sprintf("Chi = %s;  p = %s", K2, pval)
+    # boxplot(etch_rate ~ power, plasma_etching, horizontal = TRUE, main = title)
+    # points(plasma_etching$etch_rate, jitter(as.numeric(plasma_etching$power), amount = 0.15))
 })

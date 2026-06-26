@@ -7,7 +7,9 @@
 #' \describe{
 #'   \item{TEMP}{Air temperature in degrees Celsius}
 #'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0 nM, 5 nM)}
-#'   \item{cell_num}{Number of meristematic root cells}
+#'   \item{treatment}{TEMP x RGF1 -> 4 groups of treatments}
+#'   \item{grp}{Handy labels for each treatment (A, B, C, D)}
+#'   \item{cells}{Number of meristematic root cells}
 #' }
 "CYCB1"
 
@@ -20,9 +22,10 @@
 #'
 #' @format A list containing three data frames, each representing a different experimental batch:
 #' \describe{
-#'   \item{TEMP}{Air temperature in degrees Celsius}
-#'   \item{DAT}{Days after treatment or transfer}
-#'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0 nM, 5 nM)}
-#'   \item{ro_index}{Redox index ranging from -1 (reduced) to 1 (oxidized)}
+#'   \item{TEMP}{Air temperature in degrees Celsius (22C and 31C)}
+#'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0nM, 5nM)}
+#'   \item{treatment}{TEMP x RGF1 -> 4 groups of treatments}
+#'   \item{grp}{Handy labels for each treatment (A, B, C, D)}
+#'   \item{ro}{Redox index ranging from -1 (reduced) to 1 (oxidized)}
 #' }
 "roGFP"

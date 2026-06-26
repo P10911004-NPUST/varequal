@@ -44,14 +44,10 @@ This test assumes that the data within each group are normally distributed
 and is sensitive to departures from normality.
 }
 \examples{
-plasma_etching <- data.frame(
-    etch_rate = c(575, 542, 530, 539, 570,
-                  565, 593, 590, 579, 610,
-                  600, 651, 610, 637, 629,
-                  725, 700, 715, 685, 710),
-    power = as.character(rep(c(160, 180, 200, 220), each = 5))
-)
-Bartlett_test(plasma_etching, etch_rate ~ power)
+df0 <- roGFP[[1]]
+out <- Bartlett_test(df0, ro ~ grp)
+boxplot(ro ~ grp, df0, horizontal = TRUE)
+points(x = df0$ro, y = jitter(as.numeric(df0$grp), amount = 0.15))
 }
 \references{
 Bartlett, M. S. (1937). Properties of sufficiency and statistical tests.

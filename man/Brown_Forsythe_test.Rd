@@ -66,16 +66,17 @@ The \code{ybar} could be either mean, median (default), or trimmed-mean.
 \item \code{"BF"}: The original Brown–Forsythe test proposed by Brown and Forsythe (1974),
 a modification of Levene's test that uses the median instead of the mean.
 \item \code{"MBF"} The modified Brown–Forsythe test proposed by Mehrotra (1997),
-which adjusts the degrees of freedom, consequently yields an approximate
-F-distribution with F(f1, f2) instead of F(k - 1, N - k).
+which adjusts the degrees of freedom and consequently yields an approximate
+F-distribution of F(f1, f2) rather than F(k - 1, N - k). Compared with the
+original version (\code{BF}), this modification tends to reduce the Type I error
+rate at the cost of a higher Type II error rate.
 }
 }
 \examples{
 df0 <- roGFP[[1]]
-df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-Brown_Forsythe_test(df0, ro_index ~ grp)
-boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+out <- Brown_Forsythe_test(df0, ro ~ grp)
+boxplot(ro ~ grp, df0, horizontal = TRUE)
+points(x = df0$ro, y = jitter(as.numeric(df0$grp), amount = 0.15))
 }
 \references{
 Brown, M. B., & Forsythe, A. B. (1974).

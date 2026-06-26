@@ -1,63 +1,42 @@
 test_that("Brown_Forsythe_test", {
-    df0 <- roGFP[[1]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Brown_Forsythe_test(df0, ro_index ~ grp)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 3.976918)
-    testthat::expect_equal(pval, 0.02918)
-    # boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-    # points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+    #--------------------------------------------------------------------------#
+    #                        Test on dataset: roGFP                            #
+    #--------------------------------------------------------------------------#
+    answer_Fval <- c(3.976918, 1.619042, 3.632587)
+    answer_pval <- c(0.02918, 0.1986409, 0.0321278)
+    for (i in 1:3)
+    {
+        df0 <- roGFP[[i]]
+        out <- Brown_Forsythe_test(df0, ro ~ grp, silent = TRUE)
+        Fval <- round(out[["statistic"]][["F"]], 6)
+        pval <- round(out[["pvalue"]], 7)
+        testthat::expect_equal(Fval, answer_Fval[i])
+        testthat::expect_equal(pval, answer_pval[i])
 
-    df0 <- roGFP[[2]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Brown_Forsythe_test(df0, ro_index ~ grp, method = "BF")
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 1.619042)
-    testthat::expect_equal(pval, 0.1932621)
-    # boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-    # points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
+        # title <- sprintf("F = %s;  p = %s", Fval, pval)
+        # boxplot(ro ~ grp, df0, horizontal = TRUE, main = title)
+        # points(df0$ro, jitter(as.numeric(df0$grp), amount = 0.15))
+    }
 
-    df0 <- roGFP[[3]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Brown_Forsythe_test(df0, ro_index ~ grp)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 3.632587)
-    testthat::expect_equal(pval, 0.0321278)
-    # boxplot(ro_index ~ grp, df0, horizontal = TRUE)
-    # points(df0$ro_index, jitter(as.numeric(df0$grp), amount = 0.15))
 
-    df0 <- CYCB1[[1]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Brown_Forsythe_test(df0, cell_num ~ grp)
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 3.970365)
-    testthat::expect_equal(pval, 0.0251204)
-    # boxplot(cell_num ~ grp, df0, horizontal = TRUE)
-    # points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
+    #--------------------------------------------------------------------------#
+    #                        Test on dataset: CYCB1                            #
+    #--------------------------------------------------------------------------#
+    answer_Fval <- c(3.970365, 2.494966, 2.229808)
+    answer_pval <- c(0.0155278, 0.0724296, 0.0968327)
+    for (i in 1:3)
+    {
+        df0 <- CYCB1[[i]]
+        out <- Brown_Forsythe_test(df0, cells ~ grp, silent = TRUE, method = "BF")
+        Fval <- round(out[["statistic"]][["F"]], 6)
+        pval <- round(out[["pvalue"]], 7)
+        testthat::expect_equal(Fval, answer_Fval[i])
+        testthat::expect_equal(pval, answer_pval[i])
 
-    df0 <- CYCB1[[2]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Brown_Forsythe_test(df0, cell_num ~ grp, method = "BF")
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 2.494966)
-    testthat::expect_equal(pval, 0.0724296)
-    # boxplot(cell_num ~ grp, df0, horizontal = TRUE)
-    # points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
-
-    df0 <- CYCB1[[3]]
-    df0[["grp"]] <- as.factor(with(df0, paste(TEMP, RGF1, sep = "_")))
-    out <- Brown_Forsythe_test(df0, cell_num ~ grp, method = "BF")
-    Fval <- round(out[["statistic"]][["F"]], 6)
-    pval <- round(out[["pvalue"]], 7)
-    testthat::expect_equal(Fval, 2.229808)
-    testthat::expect_equal(pval, 0.0968327)
-    # boxplot(cell_num ~ grp, df0, horizontal = TRUE)
-    # points(df0$cell_num, jitter(as.numeric(df0$grp), amount = 0.15))
+        # title <- sprintf("F = %s;  p = %s", Fval, pval)
+        # boxplot(cells ~ grp, df0, horizontal = TRUE, main = title)
+        # points(df0$cells, jitter(as.numeric(df0$grp), amount = 0.15))
+    }
 })
 
 

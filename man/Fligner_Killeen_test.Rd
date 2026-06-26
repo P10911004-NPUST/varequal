@@ -42,14 +42,10 @@ Performs Fligner-Killeen test to assess the null hypothesis that the variances
 are equal across all groups (samples) defined by the independent variable.
 }
 \examples{
-plasma_etching <- data.frame(
-    etch_rate = c(575, 542, 530, 539, 570,
-                  565, 593, 590, 579, 610,
-                  600, 651, 610, 637, 629,
-                  725, 700, 715, 685, 710),
-    power = as.character(rep(c(160, 180, 200, 220), each = 5))
-)
-Fligner_Killeen_test(plasma_etching, etch_rate ~ power)
+df0 <- CYCB1[[1]]
+out <- Fligner_Killeen_test(df0, cells ~ grp)
+boxplot(cells ~ grp, df0, horizontal = TRUE)
+points(x = df0$cells, y = jitter(as.numeric(df0$grp), amount = 0.15))
 }
 \references{
 Fligner, M. A., & Killeen, T. J. (1976).
