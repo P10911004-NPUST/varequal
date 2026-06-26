@@ -1,3 +1,19 @@
+
+# O_O: observe is homo, predict is homo
+# O_X: observe is homo, predict is hetero
+# X_X: observe is hetero, predict is hetero
+# X_O: observe is hetero, predict is homo
+tests_result <- list(
+    "Ansari_Bradley_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "Bartlett_test"         = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "Brown_Forsythe_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "BF"                    = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "Fligner_Killeen_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "Levene_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "O.Brien_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
+)
+
+
 test_normal_small_data <- function(nsim = 1000)
 {
     # Sample size
@@ -20,20 +36,7 @@ test_normal_small_data <- function(nsim = 1000)
 
     BF <- function(data, silent = TRUE) Brown_Forsythe_test(data, silent = silent, method = "BF")
 
-    # O_O: observe is homo, predict is homo
-    # O_X: observe is homo, predict is hetero
-    # X_X: observe is hetero, predict is hetero
-    # X_O: observe is hetero, predict is homo
-
-    res <- list(
-        "Ansari_Bradley_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Bartlett_test"         = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Brown_Forsythe_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "BF"                    = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Fligner_Killeen_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Levene_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
-    )
-
+    res <- tests_result
     test_names <- names(res)
 
     for (i in 1:nsim)
@@ -93,20 +96,7 @@ test_normal_moderate_data <- function(nsim = 1000)
 
     BF <- function(data, silent = TRUE) Brown_Forsythe_test(data, silent = silent, method = "BF")
 
-    # O_O: observe is homo, predict is homo
-    # O_X: observe is homo, predict is hetero
-    # X_X: observe is hetero, predict is hetero
-    # X_O: observe is hetero, predict is homo
-
-    res <- list(
-        "Ansari_Bradley_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Bartlett_test"         = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Brown_Forsythe_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "BF"                    = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Fligner_Killeen_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Levene_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
-    )
-
+    res <- tests_result
     test_names <- names(res)
 
     for (i in 1:nsim)
@@ -166,20 +156,7 @@ test_normal_moderate_outlying_data <- function(nsim = 1000)
 
     BF <- function(data, silent = TRUE) Brown_Forsythe_test(data, silent = silent, method = "BF")
 
-    # O_O: observe is homo, predict is homo
-    # O_X: observe is homo, predict is hetero
-    # X_X: observe is hetero, predict is hetero
-    # X_O: observe is hetero, predict is homo
-
-    res <- list(
-        "Ansari_Bradley_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Bartlett_test"         = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Brown_Forsythe_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "BF"                    = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Fligner_Killeen_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-        "Levene_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
-    )
-
+    res <- tests_result
     test_names <- names(res)
 
     for (i in 1:nsim)
@@ -230,7 +207,12 @@ test_normal_moderate_outlying_data <- function(nsim = 1000)
 # Testing ====
 
 if (FALSE)
+{
+    system.time(out <- test_normal_small_data())
+    system.time(out <- test_normal_moderate_data())
     system.time(out <- test_normal_moderate_outlying_data())
+
+}
 
 # Summary:
 # 1. Bartlett test is the most robust test for normally distributed data.
