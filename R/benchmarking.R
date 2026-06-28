@@ -10,7 +10,8 @@ tests_result <- list(
     "BF"                    = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "Fligner_Killeen_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "Levene_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
-    "O.Brien_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
+    "O.Brien_test"          = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "O.Neill_Mathews_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
 )
 
 
