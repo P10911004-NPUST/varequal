@@ -35,8 +35,8 @@ test_that("O.Neill_Mathews_test", {
         testthat::expect_equal(pval, answer_pval[i])
 
         # print(sprintf("F = %s;  p = %s", Fval, pval))
-        title <- sprintf("F = %s;  p = %s", Fval, pval)
-        boxplot(cells ~ grp, df0, horizontal = TRUE, main = title)
-        points(df0$cells, jitter(as.numeric(df0$grp), amount = 0.15))
+        # title <- sprintf("F = %s;  p = %s", Fval, pval)
+        # boxplot(cells ~ grp, df0, horizontal = TRUE, main = title)
+        # points(df0$cells, jitter(as.numeric(df0$grp), amount = 0.15))
     }
 })

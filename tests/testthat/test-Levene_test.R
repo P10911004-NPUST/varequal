@@ -10,12 +10,13 @@ test_that("Levene_test", {
         out <- Levene_test(df0, ro ~ grp, silent = TRUE)
         Fval <- round(out[["statistic"]][["F"]], 6)
         pval <- round(out[["pvalue"]], 7)
+
         testthat::expect_equal(Fval, answer_Fval[i])
         testthat::expect_equal(pval, answer_pval[i])
 
-        title <- sprintf("F = %s;  p = %s", Fval, pval)
-        boxplot(ro ~ grp, df0, horizontal = TRUE, main = title)
-        points(df0$ro, jitter(as.numeric(df0$grp), amount = 0.15))
+        # title <- sprintf("F = %s;  p = %s", Fval, pval)
+        # boxplot(ro ~ grp, df0, horizontal = TRUE, main = title)
+        # points(df0$ro, jitter(as.numeric(df0$grp), amount = 0.15))
     }
 
     #--------------------------------------------------------------------------#
@@ -29,6 +30,7 @@ test_that("Levene_test", {
         out <- Levene_test(df0, cells ~ grp, silent = TRUE)
         Fval <- round(out[["statistic"]][["F"]], 6)
         pval <- round(out[["pvalue"]], 7)
+
         testthat::expect_equal(Fval, answer_Fval[i])
         testthat::expect_equal(pval, answer_pval[i])
 
