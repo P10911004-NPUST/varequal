@@ -9,6 +9,7 @@ test_that("Fligner_Killeen_test", {
         out <- Fligner_Killeen_test(df0, ro ~ grp, silent = TRUE)
         K2 <- round(out[["statistic"]][["ChiSquare"]], 6)
         pval <- round(out[["pvalue"]], 7)
+
         testthat::expect_equal(K2, round(unname(fk$statistic), 6))
         testthat::expect_equal(pval, round(fk$p.value, 7))
 
@@ -28,6 +29,7 @@ test_that("Fligner_Killeen_test", {
         out <- Fligner_Killeen_test(df0, cells ~ grp, silent = TRUE)
         K2 <- round(out[["statistic"]][["ChiSquare"]], 6)
         pval <- round(out[["pvalue"]], 7)
+
         testthat::expect_equal(K2, round(unname(fk$statistic), 6))
         testthat::expect_equal(pval, round(fk$p.value, 7))
 

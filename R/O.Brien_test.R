@@ -48,7 +48,7 @@
 #' A simple test for variance effects in experimental designs.
 #' Psychological Bulletin, 89(3), 570–574.
 #' https://doi.org/10.1037/0033-2909.89.3.570
-#' @seealso [Brown_Forsythe_test][Levene_test]
+#' @seealso [Brown_Forsythe_test][Levene_test][O.Neill_Mathews_test]
 #' @export
 O.Brien_test <- function(
         data,

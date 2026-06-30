@@ -118,6 +118,7 @@ Ansari_Bradley_test <- function(
             "Ansari-Bradley homogeneity of variance test\n\n",
             sprintf("Response: %s\n\n", y_name),
             sprintf("Chi-Square: %s\n", round(K2, 4)),
+            sprintf("Chi-Square critical: %s\n", round(K2_crit, 4)),
             sprintf("p-value: %s\n\n", round(pval, 5)),
             sprintf("#> Group variances are %s.",
                     ifelse(pval > alpha, "equal", "unequal")),

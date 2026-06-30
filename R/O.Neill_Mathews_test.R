@@ -44,7 +44,7 @@
 #' Theory & Methods: A Weighted Least Squares Approach to Levene’s Test of Homogeneity of Variance.
 #' Australian & New Zealand Journal of Statistics, 42(1), 81–100.
 #' https://doi.org/10.1111/1467-842X.00109
-#' @seealso [Levene_test] [Brown_Forsythe_test]
+#' @seealso [Levene_test][Brown_Forsythe_test][O.Brien_test]
 #' @export
 O.Neill_Mathews_test <- function(
         data,
