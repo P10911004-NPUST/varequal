@@ -141,7 +141,7 @@ O.Brien_test <- function(
         is_var_equal = (pval > alpha),
         alpha = alpha,
         alternative = "two.sided",
-        statistic = c("F" = Fval),
+        statistic = c("Fvalue" = Fval),
         pvalue = pval
     )
 
@@ -162,6 +162,8 @@ O.Brien_test <- function(
     if (isTRUE(misc))
     {
         ret[["misc"]] <- list(
+            "F_val" = Fval,
+            "F_crit" = Fval_crit,
             "ANOVA" = aov_tab,
             "transform (y')" = df0
         )

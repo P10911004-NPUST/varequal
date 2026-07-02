@@ -9,6 +9,7 @@ tests_result <- list(
     "Brown_Forsythe_test"   = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "BF"                    = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "Fligner_Killeen_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
+    "Lam_G_test"            = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "Levene_test"           = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "O.Brien_test"          = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0),
     "O.Neill_Mathews_test"  = c("O_O" = 0, "O_X" = 0, "X_X" = 0, "X_O" = 0)
@@ -209,14 +210,13 @@ test_normal_moderate_outlying_data <- function(nsim = 1000)
 
 if (FALSE)
 {
-    system.time(out <- test_normal_small_data())
-    system.time(out <- test_normal_moderate_data())
-    system.time(out <- test_normal_moderate_outlying_data())
-
+    system.time(out <- test_normal_small_data()); print(out)
+    system.time(out <- test_normal_moderate_data()); print(out)
+    system.time(out <- test_normal_moderate_outlying_data()); print(out)
 }
 
 # Summary:
 # 1. Bartlett test is the most robust test for normally distributed data.
 # 2. If outliers exist, Fligner-Killeen test is more robust, Levene and BF are acceptable;
 #    Bartlett's test is very susceptible to outliers.
-# 3. None of the tests can handle small sample size data nicely.
+# 3. Lam's G test seems capable to handle small sample size data nicely.

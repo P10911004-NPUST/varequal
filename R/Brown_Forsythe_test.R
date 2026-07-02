@@ -150,12 +150,14 @@ Brown_Forsythe_test <- function(
         "signif"    = c(pval2asterisk(pval, alpha), NA_character_, NA_character_)
     )
 
+    test_name <- if (method == "MBF") "Modified Brown-Forsythe" else "Brown-Forsythe"
+
     ret <- varequal_standard_output(
-        method = "Levene's homogeneity of variance test",
+        method = sprintf("%s homogeneity of variance test", test_name),
         is_var_equal = (pval > alpha),
         alpha = alpha,
         alternative = "two.sided",
-        statistic = c("F" = Fval),
+        statistic = c("Fvalue" = Fval),
         pvalue = pval
     )
 
@@ -176,6 +178,8 @@ Brown_Forsythe_test <- function(
     if (isTRUE(misc))
     {
         ret[["misc"]] <- list(
+            "F_val" = Fval,
+            "F_crit" = Fval_crit,
             "ANOVA" = aov_tab,
             "transform (y')" = df0
         )

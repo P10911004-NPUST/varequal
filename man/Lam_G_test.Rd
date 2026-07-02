@@ -2,7 +2,7 @@
 % Please edit documentation in R/Lam_G_test.R
 \name{Lam_G_test}
 \alias{Lam_G_test}
-\title{'t Lam's G ratio Test of Homogeneity of Variances}
+\title{'t Lam's G Test of Homogeneity of Variances}
 \usage{
 Lam_G_test(
   data,
@@ -51,12 +51,12 @@ homogeneity of variances across groups.
 \details{
 \verb{Note:}
 Under normally distributed data and moderate sample sizes (8 < n < 20),
-Lam's G test performs comparably to Bartlett's test. For small sample
-sizes (n < 8), it has been shown to outperform several alternative tests,
-providing a favorable balance between Type I and Type II error rates.
-In contrast, some alternative methods achieve low Type I error rates at
-the expense of substantially higher Type II error rates. However, Lam's G
-test is highly sensitive to outliers.
+Lam's G test performs comparably to Bartlett's test. For small sample sizes
+(n < 8), it appears to outperform several alternative tests, providing a
+favorable balance between Type I and Type II error rates. In contrast, some
+alternative methods achieve lower Type I error rates at the cost of
+substantially higher Type II error rates. Note that this test is highly
+sensitive to outliers.
 }
 \examples{
 df0 <- roGFP[[1]]

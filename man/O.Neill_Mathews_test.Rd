@@ -71,5 +71,5 @@ Australian & New Zealand Journal of Statistics, 42(1), 81–100.
 https://doi.org/10.1111/1467-842X.00109
 }
 \seealso{
-\link{Levene_test} \link{Brown_Forsythe_test}
+[Levene_test][Brown_Forsythe_test][O.Brien_test]
 }

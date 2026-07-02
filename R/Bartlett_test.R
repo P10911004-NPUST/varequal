@@ -101,14 +101,14 @@ Bartlett_test <- function(
 
     if (isFALSE(silent))
     {
-        cat("\n---------------------------------------\n",
+        cat("\n----------------------------------------\n",
             "Bartlett's homogeneity of variance test\n\n",
             sprintf("Response: %s\n\n", y_name),
             sprintf("Chi-Square: %s\n", round(K2, 4)),
             sprintf("p-value: %s\n\n", round(pval, 5)),
             sprintf("#> Group variances are %s.",
                     ifelse(pval > alpha, "equal", "unequal")),
-            "\n---------------------------------------\n\n")
+            "\n----------------------------------------\n\n")
     }
 
     invisible(ret)

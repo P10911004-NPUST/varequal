@@ -75,5 +75,5 @@ Psychological Bulletin, 89(3), 570–574.
 https://doi.org/10.1037/0033-2909.89.3.570
 }
 \seealso{
-\link[=Levene_test]{Brown_Forsythe_test}
+[Brown_Forsythe_test][Levene_test][O.Neill_Mathews_test]
 }

@@ -8,7 +8,7 @@ test_that("O.Brien_test", {
     {
         df0 <- roGFP[[i]]
         out <- O.Brien_test(df0, ro ~ grp, silent = TRUE)
-        Fval <- round(out[["statistic"]][["F"]], 6)
+        Fval <- round(out[["statistic"]][["Fvalue"]], 6)
         pval <- round(out[["pvalue"]], 7)
 
         testthat::expect_equal(Fval, answer_Fval[i])
@@ -28,7 +28,7 @@ test_that("O.Brien_test", {
     {
         df0 <- CYCB1[[i]]
         out <- O.Brien_test(df0, cells ~ grp, silent = TRUE)
-        Fval <- round(out[["statistic"]][["F"]], 6)
+        Fval <- round(out[["statistic"]][["Fvalue"]], 6)
         pval <- round(out[["pvalue"]], 7)
 
         testthat::expect_equal(Fval, answer_Fval[i])

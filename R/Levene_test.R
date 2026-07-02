@@ -135,7 +135,7 @@ Levene_test <- function(
         is_var_equal = (pval > alpha),
         alpha = alpha,
         alternative = "two.sided",
-        statistic = c("F" = Fval),
+        statistic = c("Fvalue" = Fval),
         pvalue = pval
     )
 
@@ -156,6 +156,8 @@ Levene_test <- function(
     if (isTRUE(misc))
     {
         ret[["misc"]] <- list(
+            "F_val" = Fval,
+            "F_crit" = Fval_crit,
             "ANOVA" = aov_tab,
             "transform (y')" = df0
         )
@@ -174,13 +176,13 @@ Levene_test <- function(
 
         show_aov[is.na(show_aov)] <- ""
 
-        cat("\n------------------------------------------\n")
+        cat("\n---------------------------------------\n")
         cat("Levene's homogeneity of variance test\n\n")
         cat(sprintf("Response: %s\n\n", y_name))
         print(show_aov)
         cat(sprintf("\n#> Group variances are %s.",
                     ifelse(pval > alpha, "equal", "unequal")))
-        cat("\n------------------------------------------\n")
+        cat("\n---------------------------------------\n")
     }
 
     invisible(ret)

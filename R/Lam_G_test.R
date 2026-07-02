@@ -1,4 +1,4 @@
-#' 't Lam's G ratio Test of Homogeneity of Variances
+#' 't Lam's G Test of Homogeneity of Variances
 #'
 #' Performs Lam's G test, an extension of Cochran's C test, to evaluate the
 #' internal consistency of variances. Although it is primarily a variance
@@ -24,12 +24,12 @@
 #' @details
 #' `Note:`
 #' Under normally distributed data and moderate sample sizes (8 < n < 20),
-#' Lam's G test performs comparably to Bartlett's test. For small sample
-#' sizes (n < 8), it has been shown to outperform several alternative tests,
-#' providing a favorable balance between Type I and Type II error rates.
-#' In contrast, some alternative methods achieve low Type I error rates at
-#' the expense of substantially higher Type II error rates. However, Lam's G
-#' test is highly sensitive to outliers.
+#' Lam's G test performs comparably to Bartlett's test. For small sample sizes
+#' (n < 8), it appears to outperform several alternative tests, providing a
+#' favorable balance between Type I and Type II error rates. In contrast, some
+#' alternative methods achieve lower Type I error rates at the cost of
+#' substantially higher Type II error rates. Note that this test is highly
+#' sensitive to outliers.
 #'
 #'
 #' @return A list containing the test statistics, p-value, degrees of freedom,
@@ -109,7 +109,7 @@ Lam_G_test <- function(
     outlying_group <- if (pval < alpha) names(grp_vars)[outlying_id] else ""
 
     ret <- varequal_standard_output(
-        method = "'t Lam's G ratio homogeneity of variance test",
+        method = "'t Lam's G homogeneity of variance test",
         is_var_equal = (pval > alpha),
         alpha = alpha,
         alternative = alt,
@@ -149,7 +149,7 @@ Lam_G_test <- function(
 
     if (isFALSE(silent))
     {
-        cat("\n------------------------------------------\n")
+        cat("\n---------------------------------------------\n")
         cat(sprintf("%s\n\n", ret[["method"]]))
         cat(sprintf("Response: %s\n\n", y_name))
         cat(sprintf("Outlying group: %s\n\n", outlying_group))
@@ -158,7 +158,7 @@ Lam_G_test <- function(
         cat(sprintf("p-value: %s\n\n", round(pval, 5)))
         cat(sprintf("#> Group variances are %s.",
                     ifelse(pval > alpha, "equal", "unequal")))
-        cat("\n------------------------------------------\n")
+        cat("\n---------------------------------------------\n")
     }
 
     invisible(ret)
