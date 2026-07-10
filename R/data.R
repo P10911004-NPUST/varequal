@@ -8,13 +8,18 @@
 #'   \item{TEMP}{Air temperature in degrees Celsius}
 #'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0 nM, 5 nM)}
 #'   \item{treatment}{TEMP x RGF1 -> 4 groups of treatments}
-#'   \item{grp}{Handy labels for each treatment (A, B, C, D)}
+#'   \item{grp}{Labels for each treatment groups (A, B, C, D)}
 #'   \item{cells}{Number of meristematic root cells}
 #' }
+#' @references
+#' Hsiao, Y., Lai, J., Shiue, S., & Yamada, M. (2026).
+#' RGF signaling bridges root development and nonlethal thermal stress adaptation.
+#' New Phytologist, nph.71392.
+#' https://doi.org/10.1111/nph.71392
 "CYCB1"
 
 
-#' RO index
+#' Redox (RO) index
 #'
 #' A dataset containing the reduced–oxidized (RO) index computed from confocal
 #' fluorescence images of roots of an *Arabidopsis thaliana* transgenic plant
@@ -25,7 +30,12 @@
 #'   \item{TEMP}{Air temperature in degrees Celsius (22C and 31C)}
 #'   \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0nM, 5nM)}
 #'   \item{treatment}{TEMP x RGF1 -> 4 groups of treatments}
-#'   \item{grp}{Handy labels for each treatment (A, B, C, D)}
+#'   \item{grp}{Labels for each treatment groups (A, B, C, D)}
 #'   \item{ro}{Redox index ranging from -1 (reduced) to 1 (oxidized)}
 #' }
+#' @references
+#' Hsiao, Y., Lai, J., Shiue, S., & Yamada, M. (2026).
+#' RGF signaling bridges root development and nonlethal thermal stress adaptation.
+#' New Phytologist, nph.71392.
+#' https://doi.org/10.1111/nph.71392
 "roGFP"

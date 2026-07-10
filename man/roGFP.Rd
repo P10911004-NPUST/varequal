@@ -3,14 +3,14 @@
 \docType{data}
 \name{roGFP}
 \alias{roGFP}
-\title{RO index}
+\title{Redox (RO) index}
 \format{
 A list containing three data frames, each representing a different experimental batch:
 \describe{
 \item{TEMP}{Air temperature in degrees Celsius (22C and 31C)}
 \item{RGF1}{Concentration of RGF1 peptide hormone treatment (0nM, 5nM)}
 \item{treatment}{TEMP x RGF1 -> 4 groups of treatments}
-\item{grp}{Handy labels for each treatment (A, B, C, D)}
+\item{grp}{Labels for each treatment groups (A, B, C, D)}
 \item{ro}{Redox index ranging from -1 (reduced) to 1 (oxidized)}
 }
 }
@@ -21,5 +21,11 @@ roGFP
 A dataset containing the reduced–oxidized (RO) index computed from confocal
 fluorescence images of roots of an \emph{Arabidopsis thaliana} transgenic plant
 (cytRGX–roGFP2).
+}
+\references{
+Hsiao, Y., Lai, J., Shiue, S., & Yamada, M. (2026).
+RGF signaling bridges root development and nonlethal thermal stress adaptation.
+New Phytologist, nph.71392.
+https://doi.org/10.1111/nph.71392
 }
 \keyword{datasets}

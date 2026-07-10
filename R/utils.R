@@ -50,6 +50,9 @@ tidy_to_dataframe <- function(data, formula = NULL)
         attr(ret, "y_name") <- "DV"
     }
 
+    if (is.matrix(data))
+        data <- as.data.frame(data)
+
     if (is.data.frame(data))
     {
         if (is.null(formula)) stop("Please specify the `formula`.")

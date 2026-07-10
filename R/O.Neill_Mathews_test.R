@@ -153,7 +153,7 @@ O.Neill_Mathews_test <- function(
             "F_val" = Fval,
             "F_crit" = Fval_crit,
             "ANOVA" = aov_tab,
-            "transform (y')" = df0
+            "transformed y (u_ij)" = uij
         )
     }
 

@@ -165,7 +165,7 @@ O.Brien_test <- function(
             "F_val" = Fval,
             "F_crit" = Fval_crit,
             "ANOVA" = aov_tab,
-            "transform (y')" = df0
+            "transformed y (r_ijk)" = r_ijk
         )
     }
 

@@ -11,6 +11,10 @@
 
 An R package for testing whether group variances are equal.
 
+There are also other nice alternatives such as 
+[`vartest`](https://cran.r-project.org/package=vartest)
+and other friends.
+
 # Installation
 
 You can install the package from [CRAN](https://cran.r-project.org/package=varequal) with:
@@ -22,8 +26,8 @@ install.packages("varequal")
 or the development version from [GitHub](https://github.com/P10911004-NPUST/varequal) with:
 
 ``` r
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("P10911004-NPUST/varequal")
+if (!require("pak")) install.packages("pak")
+pak::pak("P10911004-NPUST/varequal")
 ```
 
 # Quick start
@@ -62,30 +66,30 @@ is_var_equal(roGFP[[1]], ro ~ grp)
 ## For normally-distributed, small sample size (3 &le; n &le; 7), and outliers-free data.
 |                              |  O_O  |  O_X  |  X_X  |  X_O  | Type 1 error (%) | Type 2 error (%) | Accuracy (%) |
 | :----------                  | :---: | :---: | :---: | :---: |       :---:      |       :---:      |     :---:    | 
-| Ansari_Bradley_test          |  967  |   33  |  104  |  896  |        3.3       |       89.6       |     53.55    |
-| Bartlett_test                |  957  |   43  |  440  |  560  |        4.3       |       56.0       |     69.85    |
-| Brown_Forsythe_test          |  991  |    9  |   61  |  939  |        0.9       |       93.9       |     52.60    |
-| BF                           |  986  |   14  |   75  |  925  |        1.4       |       92.5       |     53.05    |
-| Fligner_Killeen_test         |  978  |   22  |   97  |  903  |        2.2       |       90.3       |     53.75    |
-| Lam_G_test                   |  840  |  160  |  607  |  393  |       16.0       |       39.3       |     72.35    |
-| Levene_test                  |  973  |   27  |  121  |  879  |        2.7       |       87.9       |     54.70    |
-| O.Brien_test                 |  996  |    4  |   30  |  970  |        0.4       |       97.0       |     51.30    |
-| O.Neill_Mathews_test         |  994  |    6  |   58  |  942  |        0.6       |       94.2       |     52.60    |
+| Ansari-Bradley test          |  967  |   33  |  104  |  896  |        3.3       |       89.6       |     53.55    |
+| Bartlett's test              |  957  |   43  |  440  |  560  |        4.3       |       56.0       |     69.85    |
+| Mehrotra-Brown-Forsythe test |  991  |    9  |   61  |  939  |        0.9       |       93.9       |     52.60    |
+| Brown-Forsythe test          |  986  |   14  |   75  |  925  |        1.4       |       92.5       |     53.05    |
+| Fligner-Killeen test         |  978  |   22  |   97  |  903  |        2.2       |       90.3       |     53.75    |
+| 't Lam's G test              |  840  |  160  |  607  |  393  |       16.0       |       39.3       |     72.35    |
+| Levene's test                |  973  |   27  |  121  |  879  |        2.7       |       87.9       |     54.70    |
+| O'Brien test                 |  996  |    4  |   30  |  970  |        0.4       |       97.0       |     51.30    |
+| O'Neill-Mathews test         |  994  |    6  |   58  |  942  |        0.6       |       94.2       |     52.60    |
 |||||||||
 
 
 ## For normally-distributed and moderate sample size (8 &le; n &le; 20) data, with one or two outliers.
 |                              |  O_O  |  O_X  |  X_X  |  X_O  | Type 1 error (%) | Type 2 error (%) | Accuracy (%) |
 | :----------                  | :---: | :---: | :---: | :---: |       :---:      |       :---:      |     :---:    |
-| Ansari_Bradley_test          |  972  |   28  |  843  |  157  |        2.8       |       15.7       |     90.75    |
-| Bartlett_test                |    0  | 1000  | 1000  |    0  |      100.0       |        0.0       |     50.00    |
-| Brown_Forsythe_test          | 1000  |    0  |  590  |  410  |        0.0       |       41.0       |     79.50    |
-| BF                           | 1000  |    0  |  745  |  255  |        0.0       |       25.5       |     87.25    |
-| Fligner_Killeen_test         |  974  |   26  |  910  |   90  |        2.6       |        9.0       |     94.20    |
-| Lam_G_test                   |    0  | 1000  | 1000  |    0  |      100.0       |        0.0       |     50.00    |
-| Levene_test                  | 1000  |    0  |  790  |  210  |        0.0       |       21.0       |     89.50    |
-| O.Brien_test                 | 1000  |    0  |  101  |  899  |        0.0       |       89.9       |     55.05    |
-| O.Neill_Mathews_test         | 1000  |    0  |  713  |  287  |        0.0       |       28.7       |     85.65    |
+| Ansari-Bradley test          |  972  |   28  |  843  |  157  |        2.8       |       15.7       |     90.75    |
+| Bartlett's test              |    0  | 1000  | 1000  |    0  |      100.0       |        0.0       |     50.00    |
+| Mehrotra-Brown-Forsythe test | 1000  |    0  |  590  |  410  |        0.0       |       41.0       |     79.50    |
+| Brown-Forsythe test          | 1000  |    0  |  745  |  255  |        0.0       |       25.5       |     87.25    |
+| Fligner-Killeen test         |  974  |   26  |  910  |   90  |        2.6       |        9.0       |     94.20    |
+| 't Lam's G test              |    0  | 1000  | 1000  |    0  |      100.0       |        0.0       |     50.00    |
+| Levene's test                | 1000  |    0  |  790  |  210  |        0.0       |       21.0       |     89.50    |
+| O'Brien test                 | 1000  |    0  |  101  |  899  |        0.0       |       89.9       |     55.05    |
+| O'Neill-Mathews test         | 1000  |    0  |  713  |  287  |        0.0       |       28.7       |     85.65    |
 |||||||||
 
 
