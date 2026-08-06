@@ -11,6 +11,8 @@ Description: Provides statistical methods for assessing homoscedasticity
     hypothesis testing. These tools can be used as diagnostic procedures
     prior to analyses that assume equal variances.
 License: MIT + file LICENSE
+URL: https://github.com/P10911004-NPUST/varequal
+BugReports: https://github.com/P10911004-NPUST/varequal/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
