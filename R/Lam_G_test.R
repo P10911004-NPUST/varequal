@@ -11,8 +11,6 @@
 #'        (response) variable and `IV` is the independent (grouping) variable.
 #' @param alpha A numeric value specifying the significance level. Must be
 #'        between 0 and 1. Default is 0.05.
-#' @param alternative Character (default: "two.sided"). Specifies the alternative
-#'        hypothesis. Available options are c("two.sided", "less", "greater").
 #' @param silent A logical value. If `FALSE` (default), results are
 #'        printed to the console. If `TRUE`, no output is printed.
 #' @param summary A logical value (default: `FALSE`). If `TRUE`, a summary table
@@ -20,6 +18,8 @@
 #' @param misc A logical value. If `FALSE` (default), only essential
 #'        parameters are returned. If `TRUE`, additional auxiliary
 #'        parameters are included in the output.
+#' @param alternative Character (default: "two.sided"). Specifies the alternative
+#'        hypothesis. Available options are c("two.sided", "less", "greater").
 #'
 #' @details
 #' `Note:`
@@ -52,10 +52,10 @@ Lam_G_test <- function(
         data,
         formula,
         alpha = 0.05,
-        alternative = c("two.sided", "less", "greater"),
         silent = FALSE,
         summary = FALSE,
-        misc = FALSE
+        misc = FALSE,
+        alternative = c("two.sided", "less", "greater")
 ) {
     alt <- match.arg(alternative[1], c("two.sided", "less", "greater"))
 

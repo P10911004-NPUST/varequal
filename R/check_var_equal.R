@@ -100,7 +100,7 @@ check_var_equal <- function(
                    O.Neill_Mathews_test)
 
     if (method %in% c("MBF", "BF"))
-        ret <- Brown_Forsythe_test(data, formula, alpha, silent, summary , method = method, ...)
+        ret <- Brown_Forsythe_test(data, formula, alpha, silent, summary, method = method, ...)
     else
         ret <- func(data, formula, alpha, silent, summary, ...)
 

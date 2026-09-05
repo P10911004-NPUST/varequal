@@ -8,10 +8,10 @@ Lam_G_test(
   data,
   formula,
   alpha = 0.05,
-  alternative = c("two.sided", "less", "greater"),
   silent = FALSE,
   summary = FALSE,
-  misc = FALSE
+  misc = FALSE,
+  alternative = c("two.sided", "less", "greater")
 )
 }
 \arguments{
@@ -23,9 +23,6 @@ Lam_G_test(
 \item{alpha}{A numeric value specifying the significance level. Must be
 between 0 and 1. Default is 0.05.}
 
-\item{alternative}{Character (default: "two.sided"). Specifies the alternative
-hypothesis. Available options are c("two.sided", "less", "greater").}
-
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
 
@@ -35,6 +32,9 @@ for the input data is returned.}
 \item{misc}{A logical value. If \code{FALSE} (default), only essential
 parameters are returned. If \code{TRUE}, additional auxiliary
 parameters are included in the output.}
+
+\item{alternative}{Character (default: "two.sided"). Specifies the alternative
+hypothesis. Available options are c("two.sided", "less", "greater").}
 }
 \value{
 A list containing the test statistics, p-value, degrees of freedom,
