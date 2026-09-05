@@ -6,10 +6,12 @@
 #' @param formula Formula (default: NULL).
 #'        If `data` is a data frame, define the val ~ group.
 #' @param alpha Significance threshold, range from 0 to 1 (default: 0.05).
-#' @param method Character (default: "LV"). Abbreviation specifying the normality test to
-#'        perform. Available options are `c("AB", "BL", "FK", "LG", "LV", "MBF", "OB", "OM")`.
 #' @param silent A logical value. If `FALSE` (default), results are
 #'        printed to the console. If `TRUE`, no output is printed.
+#' @param summary A logical value (default: `FALSE`). If `TRUE`, a summary table
+#'        for the input data is returned.
+#' @param method Character (default: "LV"). Abbreviation specifying the normality test to
+#'        perform. Available options are `c("AB", "BL", "FK", "LG", "LV", "MBF", "OB", "OM")`.
 #' @param ... Additional arguments passed to the selected test function.
 #'
 #' @details
@@ -70,26 +72,37 @@ check_var_equal <- function(
         data,
         formula,
         alpha = 0.05,
-        method = "LV",
         silent = FALSE,
+        summary = FALSE,
+        method = "LV",
         ...
 ) {
-    tests <- c("AB", "BL", "LG", "LV", "MBF", "OB", "OM")
+    tests <- c("AB", "BL", "FK", "LG", "LV", "MBF", "BF", "OB", "OM")
     method <- toupper(method)
     method <- match.arg(method, tests)
     m <- match(method, tests)
     stopifnot(alpha >= 0 & alpha <= 1)
 
+    if (method %in% c("MBF", "BF"))
+        BF <- Brown_Forsythe_test(data, formula, alpha, method = method, silent = silent)
+    else
+        BF <- Brown_Forsythe_test
+
     func <- switch(m,
                    Ansari_Bradley_test,
                    Bartlett_test,
+                   Fligner_Killeen_test,
                    Lam_G_test,
                    Levene_test,
+                   Brown_Forsythe_test,
                    Brown_Forsythe_test,
                    O.Brien_test,
                    O.Neill_Mathews_test)
 
-    ret <- func(data, formula, alpha, method, silent = silent, ...)
+    if (method %in% c("MBF", "BF"))
+        ret <- Brown_Forsythe_test(data, formula, alpha, silent, summary , method = method, ...)
+    else
+        ret <- func(data, formula, alpha, silent, summary, ...)
 
     invisible(ret)
 }

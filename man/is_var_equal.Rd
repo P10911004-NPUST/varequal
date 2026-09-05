@@ -8,8 +8,9 @@ is_var_equal(
   data,
   formula = NULL,
   alpha = 0.05,
-  sensitivity = 3,
-  summary = FALSE
+  silent = TRUE,
+  summary = FALSE,
+  sensitivity = 3
 )
 }
 \arguments{
@@ -20,10 +21,13 @@ If \code{data} is a data frame, define the val ~ group.}
 
 \item{alpha}{Significance threshold, range from 0 to 1 (default: 0.05).}
 
-\item{sensitivity}{Numeric, range from 1 to 5 (default: 3).
-The greater the value, the greater chance to consider as variance not equal.}
+\item{silent}{A logical value. If \code{FALSE} (default), results are
+printed to the console. If \code{TRUE}, no output is printed.}
 
 \item{summary}{Logical (default: FALSE). If \code{TRUE}, show the summary table.}
+
+\item{sensitivity}{Numeric, range from 1 to 5 (default: 3).
+The greater the value, the greater chance to consider as variance not equal.}
 }
 \value{
 A boolean value or a list if the \code{summary} is set to \code{TRUE}.

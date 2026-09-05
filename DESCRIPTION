@@ -16,9 +16,12 @@ BugReports: https://github.com/P10911004-NPUST/varequal/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
 LazyData: true
 Config/roxygen2/version: 8.1.0
+VignetteBuilder: knitr

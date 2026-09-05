@@ -8,8 +8,9 @@ check_var_equal(
   data,
   formula,
   alpha = 0.05,
-  method = "LV",
   silent = FALSE,
+  summary = FALSE,
+  method = "LV",
   ...
 )
 }
@@ -21,11 +22,14 @@ If \code{data} is a data frame, define the val ~ group.}
 
 \item{alpha}{Significance threshold, range from 0 to 1 (default: 0.05).}
 
-\item{method}{Character (default: "LV"). Abbreviation specifying the normality test to
-perform. Available options are \code{c("AB", "BL", "FK", "LG", "LV", "MBF", "OB", "OM")}.}
-
 \item{silent}{A logical value. If \code{FALSE} (default), results are
 printed to the console. If \code{TRUE}, no output is printed.}
+
+\item{summary}{A logical value (default: \code{FALSE}). If \code{TRUE}, a summary table
+for the input data is returned.}
+
+\item{method}{Character (default: "LV"). Abbreviation specifying the normality test to
+perform. Available options are \code{c("AB", "BL", "FK", "LG", "LV", "MBF", "OB", "OM")}.}
 
 \item{...}{Additional arguments passed to the selected test function.}
 }
