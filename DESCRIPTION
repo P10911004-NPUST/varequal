@@ -1,6 +1,6 @@
 Package: varequal
 Title: Tests and Measures for Homoscedasticity
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person("Joon-Keat", "Lai", , "p10911004@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-9840-5836"))
@@ -15,10 +15,10 @@ URL: https://github.com/P10911004-NPUST/varequal
 BugReports: https://github.com/P10911004-NPUST/varequal/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 8.0.0
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
 LazyData: true
+Config/roxygen2/version: 8.1.0
