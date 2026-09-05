@@ -680,10 +680,6 @@ homogeneity of variances, with applications to the outer continental shelf biddi
 Fligner, M. A., & Killeen, T. J. (1976). Distribution-free two-sample tests for scale. 
 *Journal of the American Statistical Association*, 71(353), 210--213. <https://doi.org/10.1080/01621459.1976.10481517>
 
-Levene, H. (1960). Robust tests for equality of variances. In I. Olkin (Ed.),
-*Contributions to Probability and Statistics: Essays in Honor of Harold Hotelling* 
-(pp. 278--292). Stanford University Press.
-
 Mehrotra, D. V. (1997). Improving the Brown--Forsythe solution to the generalized Behrens--Fisher 
 problem. *Communications in Statistics--Simulation and Computation*, 26, 1139--1145.
 <https://doi.org/10.1080/03610919708813431>
