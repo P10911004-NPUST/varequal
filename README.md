@@ -34,7 +34,7 @@ pak::pak("P10911004-NPUST/varequal")
 ```r
 is_var_equal(roGFP[[1]], ro ~ grp)
 ```
-
+<!-- 
 <br>
 
 # Benchmark
@@ -90,7 +90,7 @@ is_var_equal(roGFP[[1]], ro ~ grp)
 | Levene's test                | 1000  |    0  |  790  |  210  |        0.0       |       21.0       |     89.50    |
 | O'Brien test                 | 1000  |    0  |  101  |  899  |        0.0       |       89.9       |     55.05    |
 | O'Neill-Mathews test         | 1000  |    0  |  713  |  287  |        0.0       |       28.7       |     85.65    |
-|||||||||
+||||||||| -->
 
 
 <br>

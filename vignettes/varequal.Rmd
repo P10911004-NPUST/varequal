@@ -16,57 +16,29 @@ knitr::opts_chunk$set(
 
 # 1. Overview
 
-The **`varequal`** R package provides statistical methods for assessing
-**homoscedasticity**, that is, whether the variances of a response variable are
-equal across independent groups.
+The **`varequal`** R package provides a unified interface to several classical, robust, 
+rank-based, and variance-outlier-oriented procedures for assessing the homogeneity of 
+variances (**homoscedasticity**), that is, whether the variances of a response variable 
+are equal across independent groups. The package also provides high-level functions for 
+automatically combining several tests into a single variance-homogeneity decision.
 
-Homogeneity of variance is an important assumption for many classical
-statistical procedures, including one-way ANOVA and related linear-model
-analyses. When the group variances differ substantially, the validity of
-procedures that rely on a common variance can be affected.
+The main functionality:
 
-`varequal` provides a unified interface to several classical, robust,
-rank-based, and variance-outlier-oriented procedures. The package also provides
-high-level functions for automatically combining several tests into a single
-variance-homogeneity decision.
-
-The main functionality can be divided into four levels:
-
-- **Individual tests** for explicit selection of a homogeneity-of-variance
-  procedure.
-- **`check_var_equal()`** as a wrapper for selecting an individual test by a
-  short method code.
+- **`*_test`** Individual tests of a homogeneity-of-variance procedure;
+- **`check_var_equal()`** as a wrapper for selecting an individual test; and
 - **`is_var_equal()`** as a higher-level assessment combining five tests.
-- **Supporting datasets and utilities** for demonstrating and investigating
-  the behavior of the procedures.
 
-The currently implemented individual tests are:
-
-| Code | Function | Main characteristic |
-|:---|:---|:---|
-| `AB` | `Ansari_Bradley_test()` | Rank-based dispersion test |
-| `BL` | `Bartlett_test()` | Classical parametric test |
-| `BF` | `Brown_Forsythe_test()` | Robust Levene-type procedure |
-| `FK` | `Fligner_Killeen_test()` | Robust rank-based procedure |
-| `LG` | `Lam_G_test()` | Variance-outlier-oriented procedure |
-| `LV` | `Levene_test()` | ANOVA-based robust procedure |
-| `MBF` | `Brown_Forsythe_test(method = "MBF")` | Mehrotra-modified Brown--Forsythe |
-| `OB` | `O.Brien_test()` | O'Brien variance test |
-| `OM` | `O.Neill_Mathews_test()` | Weighted least-squares Levene-type test |
-
-The package source currently describes `varequal` as a toolkit for classical and
-robust tests of variance homogeneity, together with supporting measures and
-utilities for exploratory analysis and hypothesis testing.
+<br>
 
 # 2. Installation
 
-Install the released version from CRAN:
+Install the released version from [CRAN](https://cran.r-project.org/package=varequal):
 
 ```{r eval=FALSE}
 install.packages("varequal")
 ```
 
-Or install the development version from GitHub:
+Or install the development version from [GitHub](https://github.com/P10911004-NPUST/varequal):
 
 ```{r eval=FALSE}
 if (!require("pak")) install.packages("pak")
@@ -82,13 +54,9 @@ library(varequal)
 set.seed(123)
 ```
 
+<br>
+
 # 3. Quick start
-
-For a quick overall assessment, use `is_var_equal()`.
-
-The package includes the `roGFP` dataset, which contains redox-index
-measurements from three experimental batches. Each batch contains a response
-variable `ro` and a grouping variable `grp`.
 
 ```{r}
 data("roGFP")
@@ -98,34 +66,48 @@ df1 <- roGFP[[1]]
 is_var_equal(df1, ro ~ grp)
 ```
 
-The result is a logical value:
-
-```{r}
-is_var_equal(df1, ro ~ grp)
-```
-
 If you want to inspect the component tests, request a summary:
 
 ```{r}
 is_var_equal(df1, ro ~ grp, summary = TRUE)
 ```
 
-For explicit test selection, use `check_normality()`:
+<h3>If you only require a high-level decision about variance homogeneity, start with 
+`is_var_equal()` and feel free to skip the rest of this guide.</h3>
+
+<br>
+
+For explicit test selection, use `check_var_equal()`:
 
 ```{r}
 check_var_equal(df1, ro ~ grp, method = "LV")
 ```
 
-**If you only require a quick check for data heteroscedasticity, use `is_var_equal` and feel free 
-to skip the rest of this guide.**
-
-**If you only require a high-level decision about variance homogeneity, start with `is_var_equal()` 
-and feel free to skip the rest of this guide. If you need to justify a particular statistical
-procedure, use `check_var_equal()` or one of the individual test functions.**
+<br>
 
 # 4. Understanding homogeneity-of-variance testing
 
-Most procedures in this package test the null hypothesis
+Homogeneity of variance is an important assumption for many classical
+statistical procedures, including one-way ANOVA and related linear-model
+analyses. When the group variances differ substantially, the validity of
+procedures that rely on a common variance can be affected.
+
+The currently implemented individual tests are:
+
+| Code  | Function                             | Main characteristic                     |
+| :--   | :---------                           | :----------                             |
+| `AB`  | `Ansari_Bradley_test()`              | Rank-based dispersion test              |
+| `BF`  | `Brown_Forsythe_test(method = "BF")` | Robust Levene-type procedure            |
+| `BL`  | `Bartlett_test()`                    | Classical parametric test               |
+| `FK`  | `Fligner_Killeen_test()`             | Robust rank-based procedure             |
+| `LG`  | `Lam_G_test()`                       | Variance-outlier-oriented procedure     |
+| `LV`  | `Levene_test()`                      | ANOVA-based robust procedure            |
+| `MBF` | `Brown_Forsythe_test()`              | Mehrotra-modified Brown--Forsythe       |
+| `OB`  | `O.Brien_test()`                     | O'Brien variance test                   |
+| `OM`  | `O.Neill_Mathews_test()`             | Weighted least-squares Levene-type test |
+
+Most procedures in this package test the null hypothesis that the variances across the groups are 
+equal:
 
 $$ H_0:\sigma_1^2 = \sigma_2^2 = \cdots = \sigma_k^2 $$
 
@@ -135,11 +117,12 @@ $$ H_1:\text{not all }\sigma_i^2\text{ are equal}. $$
 
 The interpretation follows the usual hypothesis-testing framework.
 
-A small p-value provides evidence against homogeneity of variance. A large p-value means that the 
-test did not detect sufficient evidence of unequal variances.
+A small *p*-value provides evidence against homogeneity of variance. A large *p*-value means that 
+the test did not detect sufficient evidence of unequal variances.
 
-A large p-value does **not** prove that all population variances are exactly equal. The result 
-should be interpreted together with:
+A large *p*-value does **not** prove that all population variances are exactly equal. 
+
+The result should be interpreted together with:
 
 - the sample size in each group;
 - the presence or absence of outliers;
@@ -151,6 +134,8 @@ should be interpreted together with:
 Different tests have different sensitivities. In particular, Bartlett's test can be very 
 sensitive to non-normality, whereas robust and rank-based procedures are generally less 
 affected by departures from normality.
+
+<br>
 
 # 5. Data input
 
@@ -191,6 +176,8 @@ A list can be used when the observations are already separated into groups.
 x <- list(A = rnorm(12), B = rnorm(12), C = rnorm(12))
 is_var_equal(x)
 ```
+
+<br>
 
 # 6. The individual tests
 
@@ -300,8 +287,8 @@ The interpretation is directional:
 - `"less"` focuses on unusually small variances;
 - `"two.sided"` considers both directions.
 
-The method is highly sensitive to outliers, so it should be used with an explicit understanding of 
-that property.
+The method is highly sensitive to outliers, so it should be used with an explicit understanding 
+of that property.
 
 ## 6.6 Levene's test
 
@@ -365,22 +352,22 @@ $$ y'_{ij} = |y_{ij} - \tilde y_i|. $$
 This procedure is useful when a weighted least-squares formulation is desired, particularly when 
 group sizes are unequal.
 
+<br>
+
 # 7. Selecting a test with `check_var_equal()`
 
 `check_var_equal()` provides a common wrapper around the individual tests. The available method 
 codes are:
 
-| Code  | Procedure                 |
-| :---  | :-------                  |
-| `AB`  | Ansari--Bradley           |
-| `BL`  | Bartlett                  |
-| `FK`  | Fligner--Killeen          |
-| `LG`  | 't Lam's G                |
-| `LV`  | Levene                    |
-| `MBF` | Mehrotra--Brown--Forsythe |
-| `BF`  | Brown--Forsythe           |
-| `OB`  | O'Brien                   |
-| `OM`  | O'Neill--Mathews          |
+`AB`: Ansari--Bradley test
+`BL`: Bartlett's test
+`FK`: Fligner--Killeen test
+`LG`: Lam's G procedure
+`LV`: Levene's test
+`MBF`: Mehrotra--modified Brown--Forsythe test
+`BF`: Brown--Forsythe test
+`OB`: O'Brien's test
+`OM`: O'Neill--Mathews test
 
 This is particularly useful when the method is selected programmatically. For example:
 
@@ -389,6 +376,8 @@ method <- "FK"
 result <- check_var_equal(df1, ro ~ grp, method = method, silent = TRUE)
 result
 ```
+
+<br>
 
 # 8. Automatic assessment with `is_var_equal()`
 
@@ -404,7 +393,8 @@ The `sensitivity` argument ranges from 1 to 5. A larger value requires more comp
 agree that the variances are equal:
 
 ```{r}
-for (s in 1:5) {
+for (s in 1:5) 
+{
   cat("sensitivity =", s, "\n")
   print(is_var_equal(df1, ro ~ grp, sensitivity = s))
 }
@@ -424,29 +414,9 @@ result$is_var_equal
 result$summary
 ```
 
-The summary contains the individual test decisions, p-values, test statistics, and critical values.
+<br>
 
-# 9. Comparing the tests
-
-No single homogeneity-of-variance test is uniformly optimal.
-
-A practical comparison is:
-
-| Situation | Useful starting point |
-|:---|:---|
-| Approximately normal data, no important outliers | Bartlett |
-| Normality is uncertain | Fligner--Killeen |
-| Outliers may be present | Brown--Forsythe or Fligner--Killeen |
-| A conventional Levene framework is desired | Levene |
-| Unequal group sizes with weighted least squares | O'Neill--Mathews |
-| Variance-outlier behavior is of interest | 't Lam's G |
-| Explicit comparison with O'Brien's transformation | O'Brien |
-| Rank-based dispersion comparison | Ansari--Bradley |
-
-These are guidelines rather than universal rules. The final choice should depend on the data and 
-the assumptions of the downstream analysis.
-
-# 10. Why multiple tests can disagree
+# 9. Why multiple tests can disagree
 
 Different procedures weight distributional features differently.
 
@@ -472,7 +442,9 @@ A better question is:
 `is_var_equal()` is intended to provide a practical aggregate assessment, while the individual 
 functions allow the analyst to inspect the behavior of specific procedures.
 
-# 11. Inspecting the data before testing
+<br>
+
+# 10. Inspecting the data before testing
 
 Formal tests should not replace graphical inspection.
 
@@ -501,18 +473,18 @@ boxplot(cells ~ grp,
         main = text,
         horizontal = TRUE,
         xlab = "Cell number",
-        ylab = "Group"
-)
+        ylab = "Group")
 points(x = df2$cells, 
        y = jitter(as.numeric(df2$grp), amount = 0.15))
 ```
 
-# 12. Built-in datasets
+<br>
 
-## 12.1 `roGFP`
+# 11. Built-in datasets
 
-`roGFP` is a list containing three experimental batches. Each data frame
-contains:
+## 11.1 `roGFP`
+
+`roGFP` is a list containing three experimental batches. Each data frame contains:
 
 - `TEMP`: air temperature;
 - `RGF1`: RGF1 peptide concentration;
@@ -529,7 +501,7 @@ str(roGFP[[1]])
 
 The dataset is based on measurements from *Arabidopsis thaliana* roots.
 
-## 12.2 `CYCB1`
+## 11.2 `CYCB1`
 
 `CYCB1` is a list containing three experimental batches of meristematic root cell counts. 
 Each data frame contains:
@@ -548,97 +520,111 @@ str(CYCB1[[1]])
 These datasets are included as practical examples for applying variance homogeneity tests to 
 experimental biological data.
 
-# 13. Benchmarking and method performance
+<br>
+
+# 12. Benchmarking and method performance
 
 For comparing variance-homogeneity procedures, the benchmark uses four possible outcomes:
 
-- **O_O**: variance is homogeneous and the method predicts homogeneous;
-- **O_X**: variance is homogeneous but the method predicts heterogeneous;
-- **X_X**: variance is heterogeneous and the method predicts heterogeneous;
-- **X_O**: variance is heterogeneous but the method predicts homogeneous.
+- **O_O**: variances are **equal** and the method predicts **equal**;
+- **O_X**: variances are **equal** but the method predicts **unequal**;
+- **X_X**: variances are **unequal** and the method predicts **unequal**;
+- **X_O**: variances are **unequal** but the method predicts **equal**.
 
 From these quantities:
 
 $$ \text{Type I error} = \frac{O\_X}{O\_O + O\_X}\times100\%, $$
 
+Higher value of `Type I error` means that when the samples are homoscedastic, the procedure has
+greater chance to mis-classify the variances as heteroscedastic.
+
+
 $$ \text{Type II error} = \frac{X\_O}{X\_X + X\_O}\times100\%, $$
+
+Higher value of `Type II error` means that when the samples are heteroscedastic, the procedure has
+greater chance to mis-classify the variances as homoscedastic.
 
 $$ \text{Accuracy} = \frac{O\_O + X\_X} {O\_O + O\_X + X\_X + X\_O}\times100\%. $$
 
-## Scenario 1: normal data, moderate sample size
+`Accuracy` represent the overall sensitivity and specificity to the samples homoscedasticity.
 
-For normally distributed, outlier-free data with group sizes from 8 to 20:
+## Scenario 1: normally-distributed data, moderate sample size, no outlier
 
-| Test | Type I error | Type II error | Accuracy |
-|---|---:|---:|---:|
-| Ansari–Bradley | 2.6% | 25.1% | 86.15% |
-| Bartlett | 6.1% | 1.5% | 96.20% |
-| Modified Brown–Forsythe | 2.3% | 23.3% | 87.20% |
-| Brown–Forsythe | 2.7% | 17.7% | 89.80% |
-| Fligner–Killeen | 2.4% | 17.6% | 90.00% |
-| 't Lam's G | 8.1% | 1.8% | 95.05% |
-| Levene | 2.7% | 13.6% | 91.85% |
-| O'Brien | 1.7% | 37.5% | 80.40% |
-| O'Neill–Mathews | 1.7% | 18.0% | 90.15% |
+For normally distributed, outlier-free data with group sizes range from 8 to 20:
 
-This scenario illustrates the advantage of Bartlett's test when its normality assumptions are 
+|     |  O_O  |  O_X  |  X_X  |  X_O  | Type 1 error (%) | Type 2 error (%) | Accuracy (%) |
+| :-- | :---: | :---: | :---: | :---: |       :---:      |       :---:      |     :---:    | 
+| BL  |  939  |   61  |  985  |   15  |        6.1       |         1.5      |     96.20    |
+| AB  |  974  |   26  |  749  |  251  |        2.6       |        25.1      |     86.15    |
+| FK  |  976  |   24  |  824  |  176  |        2.4       |        17.6      |     90.00    |
+| MBF |  977  |   23  |  767  |  233  |        2.3       |        23.3      |     87.20    |
+| BF  |  973  |   27  |  823  |  177  |        2.7       |        17.7      |     89.80    |
+| LV  |  973  |   27  |  864  |  136  |        2.7       |        13.6      |     91.85    |
+| OB  |  983  |   17  |  625  |  375  |        1.7       |        37.5      |     80.40    |
+| OM  |  983  |   17  |  820  |  180  |        1.7       |        18.0      |     90.15    |
+| LG  |  919  |   81  |  982  |   18  |        8.1       |         1.8      |     95.05    |
+|||||||||
+
+This scenario illustrates the advantage of Bartlett's test (BL) when its normality assumptions are 
 satisfied. Its low Type II error produces high accuracy in this benchmark.
 
-## Scenario 2: normal data, small sample size
+## Scenario 2: normally-distributed data, small sample size, no outlier
 
-For group sizes from 3 to 7, the reported Type II errors become much larger for many procedures. 
-For example:
+For group sizes from 3 to 7, the reported Type II errors become much larger for many procedures.
 
-| Test | Type I error | Type II error | Accuracy |
-|---|---:|---:|---:|
-| Ansari–Bradley | 3.3% | 89.6% | 53.55% |
-| Bartlett | 4.3% | 56.0% | 69.85% |
-| Modified Brown–Forsythe | 0.9% | 93.9% | 52.60% |
-| Brown–Forsythe | 1.4% | 92.5% | 53.05% |
-| Fligner–Killeen | 2.2% | 90.3% | 53.75% |
-| 't Lam's G | 16.0% | 39.3% | 72.35% |
-| Levene | 2.7% | 87.9% | 54.70% |
-| O'Brien | 0.4% | 97.0% | 51.30% |
-| O'Neill–Mathews | 0.6% | 94.2% | 52.60% |
+|     |  O_O  |  O_X  |  X_X  |  X_O  | Type 1 error (%) | Type 2 error (%) | Accuracy (%) |
+| :-- | :---: | :---: | :---: | :---: |       :---:      |       :---:      |     :---:    | 
+| BL  |  957  |   43  |  440  |  560  |        4.3       |       56.0       |     69.85    |
+| AB  |  967  |   33  |  104  |  896  |        3.3       |       89.6       |     53.55    |
+| FK  |  978  |   22  |   97  |  903  |        2.2       |       90.3       |     53.75    |
+| MBF |  991  |    9  |   61  |  939  |        0.9       |       93.9       |     52.60    |
+| BF  |  986  |   14  |   75  |  925  |        1.4       |       92.5       |     53.05    |
+| LV  |  973  |   27  |  121  |  879  |        2.7       |       87.9       |     54.70    |
+| OB  |  996  |    4  |   30  |  970  |        0.4       |       97.0       |     51.30    |
+| OM  |  994  |    6  |   58  |  942  |        0.6       |       94.2       |     52.60    |
+| LG  |  840  |  160  |  607  |  393  |       16.0       |       39.3       |     72.35    |
+|||||||||
 
-The central lesson is not that one test is universally best. Rather, small samples can make 
-variance testing intrinsically difficult. A non-significant result should therefore be interpreted 
-cautiously when group sizes are very small.
+Small samples can make variance testing intrinsically difficult. A non-significant result should 
+therefore be interpreted cautiously when group sizes are very small.
 
-## Scenario 3: normal data with outliers
+## Scenario 3: normally-distributed data, moderate sample size, with outliers
 
-The benchmark also considers moderate sample sizes with one or two outliers. In that setting, the 
-Bartlett and 't Lam's G can become extremely sensitive to the introduced outliers, while robust 
-procedures can maintain substantially better Type I error control.
+The benchmark also considers moderate sample sizes (8 &le; n &le; 20) with one or two outliers. 
+The Bartlett and 't Lam's G can become extremely sensitive to the introduced outliers, while 
+rank-based procedures can maintain substantially better Type II error control.
 
 For example, the reported results include:
 
-| Test | Type I error | Type II error | Accuracy |
-|---|---:|---:|---:|
-| Bartlett | 100.0% | 0.0% | 50.00% |
-| Modified Brown–Forsythe | 0.0% | 41.0% | 79.50% |
-| Brown–Forsythe | 0.0% | 25.5% | 87.25% |
-| Fligner–Killeen | 2.6% | 9.0% | 94.20% |
-| Levene | 0.0% | 21.0% | 89.50% |
+|     |  O_O  |  O_X  |  X_X  |  X_O  | Type 1 error (%) | Type 2 error (%) | Accuracy (%) |
+| :-- | :---: | :---: | :---: | :---: |       :---:      |       :---:      |     :---:    |
+| BL  |    0  | 1000  | 1000  |    0  |      100.0       |        0.0       |     50.00    |
+| AB  |  972  |   28  |  843  |  157  |        2.8       |       15.7       |     90.75    |
+| FK  |  974  |   26  |  910  |   90  |        2.6       |        9.0       |     94.20    |
+| MBF | 1000  |    0  |  590  |  410  |        0.0       |       41.0       |     79.50    |
+| BF  | 1000  |    0  |  745  |  255  |        0.0       |       25.5       |     87.25    |
+| LV  | 1000  |    0  |  790  |  210  |        0.0       |       21.0       |     89.50    |
+| OB  | 1000  |    0  |  101  |  899  |        0.0       |       89.9       |     55.05    |
+| OM  | 1000  |    0  |  713  |  287  |        0.0       |       28.7       |     85.65    |
+| LG  |    0  | 1000  | 1000  |    0  |      100.0       |        0.0       |     50.00    |
+|||||||||
 
 ## Practical interpretation
 
 The benchmark supports three general principles:
 
-1. **Normal, clean data:** Bartlett can be highly effective.
+1. **Normal, clean data:** Bartlett's test can be highly effective.
 2. **Non-normal or contaminated data:** robust procedures such as Brown–Forsythe and Fligner–Killeen 
-are often preferable.
-3. **Very small samples:** all tests can have poor ability to detect genuine heteroscedasticity, so 
-graphical and substantive assessment becomes especially important.
+are preferable.
+3. **Very small samples:** All methods show poor power to detect heteroscedasticity (perhaps 
+Lam's G procedure is a better choice).
 
-The benchmark is a simulation study rather than a universal ranking of methods. Results depend on the exact simulation design, and performance under a user's data-generating process can differ.
+The benchmark is a simulation study rather than a universal ranking of methods. Results depend on 
+the exact simulation design, and performance under a user's data-generating process can differ.
 
 <br>
 
 # Summary
-
-The **`varequal`** package provides a unified R interface for assessing homogeneity of variance 
-across independent groups.
 
 The principal functions are:
 
@@ -652,10 +638,6 @@ The principal functions are:
 - `Lam_G_test()` for variance-outlier-oriented assessment;
 - `O.Brien_test()` for O'Brien's variance test; and
 - `O.Neill_Mathews_test()` for a weighted least-squares Levene-type approach.
-
-No single test should be treated as universally best. The appropriate method
-depends on distributional assumptions, outliers, sample size, group balance,
-and the statistical model that follows.
 
 <br>
 
