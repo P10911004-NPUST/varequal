@@ -2,6 +2,9 @@
 
 An R package for testing whether group variances are equal.
 
+**[Get
+started](https://p10911004-npust.github.io/varequal/articles/varequal.html)**
+
 There are also other nice alternatives such as
 [`vartest`](https://cran.r-project.org/package=vartest) and other
 friends.

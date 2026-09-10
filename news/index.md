@@ -1,5 +1,7 @@
 # Changelog
 
+## varequal 0.0.3
+
 ## varequal 0.0.2
 
 CRAN release: 2026-09-05
