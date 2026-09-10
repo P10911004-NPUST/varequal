@@ -1,0 +1,104 @@
+# varequal
+
+An R package for testing whether group variances are equal.
+
+There are also other nice alternatives such as
+[`vartest`](https://cran.r-project.org/package=vartest) and other
+friends.
+
+# Installation
+
+You can install the package from
+[CRAN](https://cran.r-project.org/package=varequal) with:
+
+``` r
+
+install.packages("varequal")
+```
+
+or the development version from
+[GitHub](https://github.com/P10911004-NPUST/varequal) with:
+
+``` r
+
+if (!require("pak")) install.packages("pak")
+pak::pak("P10911004-NPUST/varequal")
+```
+
+# Quick start
+
+``` r
+
+is_var_equal(roGFP[[1]], ro ~ grp)
+```
+
+  
+
+# TODO
+
+Ansari-Bradley test
+
+- [Ansari & Bradley, 1960](http://www.jstor.org/stable/2237814)
+
+Moses test
+
+- [Moses,
+  1963](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-34/issue-3/Rank-Tests-of-Dispersion/10.1214/aoms/1177704020.full)
+
+Miller test
+
+- [Miller, 1968](https://www.jstor.org/stable/2239049)
+
+Bartlett’s test
+
+Brown-Forsythe test
+
+Cochran G test
+
+- [Lam, 2010](https://doi.org/10.1016/j.aca.2009.11.032)
+
+Fligner-Killeen test
+
+- [Fligner & Killeen,
+  1974](https://www.tandfonline.com/doi/abs/10.1080/01621459.1976.10481517)
+
+Hartley’s test
+
+- [Frey, 2010](https://doi.org/10.1002/cjs.10069)
+
+Levene’s test
+
+# Package index
+
+## All functions
+
+- [`Ansari_Bradley_test()`](https://p10911004-npust.github.io/varequal/reference/Ansari_Bradley_test.md)
+  : Ansari-Bradley Test of Homogeneity of Variances
+- [`Bartlett_test()`](https://p10911004-npust.github.io/varequal/reference/Bartlett_test.md)
+  : Bartlett's Test of Homogeneity of Variances
+- [`Brown_Forsythe_test()`](https://p10911004-npust.github.io/varequal/reference/Brown_Forsythe_test.md)
+  : Brown-Forsythe Test of Homogeneity of Variances
+- [`CYCB1`](https://p10911004-npust.github.io/varequal/reference/CYCB1.md)
+  : Cell number
+- [`Fligner_Killeen_test()`](https://p10911004-npust.github.io/varequal/reference/Fligner_Killeen_test.md)
+  : Fligner-Killeen Test of Homogeneity of Variances
+- [`Lam_G_test()`](https://p10911004-npust.github.io/varequal/reference/Lam_G_test.md)
+  : 't Lam's G Test of Homogeneity of Variances
+- [`Levene_test()`](https://p10911004-npust.github.io/varequal/reference/Levene_test.md)
+  : Levene's Test of Homogeneity of Variances
+- [`O.Brien_test()`](https://p10911004-npust.github.io/varequal/reference/O.Brien_test.md)
+  : O'Brien's Test of Homogeneity of Variances
+- [`O.Neill_Mathews_test()`](https://p10911004-npust.github.io/varequal/reference/O.Neill_Mathews_test.md)
+  : O'Neill-Mathews Test of Homogeneity of Variances
+- [`check_var_equal()`](https://p10911004-npust.github.io/varequal/reference/check_var_equal.md)
+  : Homogeneity of variance test
+- [`is_var_equal()`](https://p10911004-npust.github.io/varequal/reference/is_var_equal.md)
+  : Homogeneity of variance test
+- [`roGFP`](https://p10911004-npust.github.io/varequal/reference/roGFP.md)
+  : Redox (RO) index
+
+# Articles
+
+### All vignettes
+
+- [varequal](https://p10911004-npust.github.io/varequal/articles/varequal.md):
