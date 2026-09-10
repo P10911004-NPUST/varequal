@@ -161,8 +161,7 @@ Levene_test(df1, ro ~ grp)
 The response is the dependent variable and the right-hand side identifies the
 independent grouping variable.
 
-A data frame containing several experimental variables can therefore be used
-directly:
+A data frame containing several experimental variables can therefore be used directly:
 
 ```{r}
 check_var_equal(df1, ro ~ grp, method = "BF")

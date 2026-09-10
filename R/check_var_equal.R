@@ -83,11 +83,6 @@ check_var_equal <- function(
     m <- match(method, tests)
     stopifnot(alpha >= 0 & alpha <= 1)
 
-    if (method %in% c("MBF", "BF"))
-        BF <- Brown_Forsythe_test(data, formula, alpha, method = method, silent = silent)
-    else
-        BF <- Brown_Forsythe_test
-
     func <- switch(m,
                    Ansari_Bradley_test,
                    Bartlett_test,
