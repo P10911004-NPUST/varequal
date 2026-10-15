@@ -4,7 +4,7 @@
 
 The **`varequal`** R package provides a unified interface to several
 classical, robust, rank-based, and variance-outlier-oriented procedures
-for assessing the homogeneity of variances (**homoscedasticity**), that
+for assessing the **homoscedasticity** (homogeneity of variances), that
 is, whether the variances of a response variable are equal across
 independent groups. The package also provides high-level functions for
 automatically combining several tests into a single variance-homogeneity
@@ -86,7 +86,11 @@ is_var_equal(df1, ro ~ grp, summary = TRUE)
 #> O'Neill-Mathews (Fvalue)               2.806845
 ```
 
+  
+
 #### If you only require a high-level decision about variance homogeneity, start with `is_var_equal()` and feel free to skip the rest of this guide.
+
+------------------------------------------------------------------------
 
   
 
@@ -225,19 +229,6 @@ check_var_equal(df1, ro ~ grp, method = "BF")
 #> 
 #> #> Group variances are unequal.
 #> --------------------------------------------
-#> 
-#> --------------------------------------------
-#> Brown-Forsythe homogeneity of variance test
-#> 
-#> Response: ro
-#> 
-#>              DF   SS   MS Fvalue  pvalue
-#> Group         3 0.02 0.01 3.9769 0.01598
-#> Residuals 32.86 0.05    0               
-#> Total     35.86 0.07                    
-#> 
-#> #> Group variances are unequal.
-#> --------------------------------------------
 ```
 
 ### 5.2 A list of numeric vectors
@@ -292,11 +283,9 @@ implements the classical Bartlett test.
 
 Bartlett’s test is the most powerful test when no outliers exist and the
 observations follow normal distribution, but it is sensitive to
-departures from normality and to outliers.
-
-For data that satisfy the normality assumption reasonably well and are
-free of important outliers, Bartlett’s test is an appropriate classical
-procedure.
+departures from normality and to outliers. For data that satisfy the
+normality assumption reasonably well and are free of important outliers,
+Bartlett’s test is an appropriate classical procedure.
 
 ``` r
 
@@ -422,7 +411,7 @@ fk <- Fligner_Killeen_test(df1, ro ~ grp)
 ```
 
 The procedure works with ranks of absolute deviations from the group
-median and uses a normal-score transformation. `Fligner--Killeen` is an
+median and uses a normal-score transformation. `Fligner-Killeen` is an
 important general-purpose choice when the normality assumption is
 questionable.
 
@@ -1053,7 +1042,8 @@ Bartlett, M. S. (1937). Properties of sufficiency and statistical tests.
 
 Brown, M. B., & Forsythe, A. B. (1974). Robust tests for the equality of
 variances. *Journal of the American Statistical Association*, 69(346),
-364–367. <https://doi.org/10.1080/01621459.1974.10482955>
+364–367.  
+<https://doi.org/10.1080/01621459.1974.10482955>
 
 Conover, W. J., Johnson, M. E., & Johnson, M. M. (1981). A comparative
 study of tests for homogeneity of variances, with applications to the
@@ -1062,11 +1052,12 @@ outer continental shelf bidding data. *Technometrics*, 23, 351–361.
 
 Fligner, M. A., & Killeen, T. J. (1976). Distribution-free two-sample
 tests for scale. *Journal of the American Statistical Association*,
-71(353), 210–213. <https://doi.org/10.1080/01621459.1976.10481517>
+71(353), 210–213.  
+<https://doi.org/10.1080/01621459.1976.10481517>
 
 Mehrotra, D. V. (1997). Improving the Brown–Forsythe solution to the
 generalized Behrens–Fisher problem. *Communications in
-Statistics–Simulation and Computation*, 26, 1139–1145.
+Statistics–Simulation and Computation*, 26, 1139–1145.  
 <https://doi.org/10.1080/03610919708813431>
 
 O’Brien, R. G. (1981). A simple test for variance effects in
@@ -1080,7 +1071,7 @@ Squares Approach to Levene’s Test of Homogeneity of Variance.
 
 Sharma, D., & Kibria, B. M. G. (2013). On some test statistics for
 testing homogeneity of variances: A comparative study. *Journal of
-Statistical Computation and Simulation*, 83, 1944–1963.
+Statistical Computation and Simulation*, 83, 1944–1963.  
 <https://doi.org/10.1080/00949655.2012.675336>
 
 ’t Lam, R. U. E. (2010). Scrutiny of variance results for outliers:
@@ -1089,5 +1080,5 @@ Cochran’s test optimized. *Analytica Chimica Acta*, 659(1–2), 68–84.
 
 Zhou, Y., Zhu, Y., & Wong, W. K. (2023). Statistical tests for
 homogeneity of variance for clinical trials and recommendations.
-*Contemporary Clinical Trials Communications*, 33, 101119.
+*Contemporary Clinical Trials Communications*, 33, 101119.  
 <https://doi.org/10.1016/j.conctc.2023.101119>

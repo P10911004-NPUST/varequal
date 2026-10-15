@@ -74,16 +74,22 @@
 
     
     
+<style>
+p {
+  text-align: justify;
+}
+</style>
 <div class="section level2">
 <h2 id="overview">1. Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The <strong><code>varequal</code></strong> R package provides a
 unified interface to several classical, robust, rank-based, and
-variance-outlier-oriented procedures for assessing the homogeneity of
-variances (<strong>homoscedasticity</strong>), that is, whether the
-variances of a response variable are equal across independent groups.
-The package also provides high-level functions for automatically
-combining several tests into a single variance-homogeneity decision.</p>
+variance-outlier-oriented procedures for assessing the
+<strong>homoscedasticity</strong> (homogeneity of variances), that is,
+whether the variances of a response variable are equal across
+independent groups. The package also provides high-level functions for
+automatically combining several tests into a single variance-homogeneity
+decision.</p>
 <p>The main functionality:</p>
 <ul>
 <li>
@@ -145,12 +151,14 @@ assessment combining five tests.</li>
 <span><span class="co">#&gt; 't Lam's G (Fvalue)                    3.400135</span></span>
 <span><span class="co">#&gt; Levene's (Fvalue)                      2.806845</span></span>
 <span><span class="co">#&gt; O'Neill-Mathews (Fvalue)               2.806845</span></span></code></pre></div>
+<p><br></p>
 <h4 id="quick-start-1">
 If you only require a high-level decision about variance homogeneity,
 start with <code>is_var_equal()</code> and feel free to skip the rest of
 this guide.
 <a class="anchor" aria-label="anchor" href="#quick-start-1"></a>
 </h4>
+<hr>
 <p><br></p>
 <p>For explicit test selection, use <code><a href="../reference/check_var_equal.html">check_var_equal()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -314,19 +322,6 @@ be used directly:</p>
 <span><span class="co">#&gt; Total     35.86 0.07                    </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; #&gt; Group variances are unequal.</span></span>
-<span><span class="co">#&gt; --------------------------------------------</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; --------------------------------------------</span></span>
-<span><span class="co">#&gt; Brown-Forsythe homogeneity of variance test</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Response: ro</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;              DF   SS   MS Fvalue  pvalue</span></span>
-<span><span class="co">#&gt; Group         3 0.02 0.01 3.9769 0.01598</span></span>
-<span><span class="co">#&gt; Residuals 32.86 0.05    0               </span></span>
-<span><span class="co">#&gt; Total     35.86 0.07                    </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; #&gt; Group variances are unequal.</span></span>
 <span><span class="co">#&gt; --------------------------------------------</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -377,10 +372,9 @@ homogeneity test.</p>
 test.</p>
 <p>Bartlett’s test is the most powerful test when no outliers exist and
 the observations follow normal distribution, but it is sensitive to
-departures from normality and to outliers.</p>
-<p>For data that satisfy the normality assumption reasonably well and
-are free of important outliers, Bartlett’s test is an appropriate
-classical procedure.</p>
+departures from normality and to outliers. For data that satisfy the
+normality assumption reasonably well and are free of important outliers,
+Bartlett’s test is an appropriate classical procedure.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Bartlett_test.html">Bartlett_test</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">ro</span> <span class="op">~</span> <span class="va">grp</span>, summary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -491,8 +485,8 @@ important.</p>
 <span><span class="co">#&gt; ---------------------------------------------</span></span></code></pre></div>
 <p>The procedure works with ranks of absolute deviations from the group
 median and uses a normal-score transformation.
-<code>Fligner--Killeen</code> is an important general-purpose choice
-when the normality assumption is questionable.</p>
+<code>Fligner-Killeen</code> is an important general-purpose choice when
+the normality assumption is questionable.</p>
 </div>
 <div class="section level3">
 <h3 id="t-lams-g-test">6.5 ’t Lam’s G test<a class="anchor" aria-label="anchor" href="#t-lams-g-test"></a>
@@ -1440,17 +1434,17 @@ tests. <em>Proceedings of the Royal Society of London. Series A</em>,
 160(901), 268–282. <a href="https://doi.org/10.1098/rspa.1937.0109" class="external-link uri">https://doi.org/10.1098/rspa.1937.0109</a></p>
 <p>Brown, M. B., &amp; Forsythe, A. B. (1974). Robust tests for the
 equality of variances. <em>Journal of the American Statistical
-Association</em>, 69(346), 364–367. <a href="https://doi.org/10.1080/01621459.1974.10482955" class="external-link uri">https://doi.org/10.1080/01621459.1974.10482955</a></p>
+Association</em>, 69(346), 364–367. <br><a href="https://doi.org/10.1080/01621459.1974.10482955" class="external-link uri">https://doi.org/10.1080/01621459.1974.10482955</a></p>
 <p>Conover, W. J., Johnson, M. E., &amp; Johnson, M. M. (1981). A
 comparative study of tests for homogeneity of variances, with
 applications to the outer continental shelf bidding data.
 <em>Technometrics</em>, 23, 351–361. <a href="https://doi.org/10.1080/00401706.1981.10487680" class="external-link uri">https://doi.org/10.1080/00401706.1981.10487680</a></p>
 <p>Fligner, M. A., &amp; Killeen, T. J. (1976). Distribution-free
 two-sample tests for scale. <em>Journal of the American Statistical
-Association</em>, 71(353), 210–213. <a href="https://doi.org/10.1080/01621459.1976.10481517" class="external-link uri">https://doi.org/10.1080/01621459.1976.10481517</a></p>
+Association</em>, 71(353), 210–213. <br><a href="https://doi.org/10.1080/01621459.1976.10481517" class="external-link uri">https://doi.org/10.1080/01621459.1976.10481517</a></p>
 <p>Mehrotra, D. V. (1997). Improving the Brown–Forsythe solution to the
 generalized Behrens–Fisher problem. <em>Communications in
-Statistics–Simulation and Computation</em>, 26, 1139–1145. <a href="https://doi.org/10.1080/03610919708813431" class="external-link uri">https://doi.org/10.1080/03610919708813431</a></p>
+Statistics–Simulation and Computation</em>, 26, 1139–1145. <br><a href="https://doi.org/10.1080/03610919708813431" class="external-link uri">https://doi.org/10.1080/03610919708813431</a></p>
 <p>O’Brien, R. G. (1981). A simple test for variance effects in
 experimental designs. <em>Psychological Bulletin</em>, 89(3), 570–574.
 <a href="https://doi.org/10.1037/0033-2909.89.3.570" class="external-link uri">https://doi.org/10.1037/0033-2909.89.3.570</a></p>
@@ -1460,13 +1454,13 @@ Variance. <em>Australian &amp; New Zealand Journal of Statistics</em>,
 42(1), 81–100. <a href="https://doi.org/10.1111/1467-842X.00109" class="external-link uri">https://doi.org/10.1111/1467-842X.00109</a></p>
 <p>Sharma, D., &amp; Kibria, B. M. G. (2013). On some test statistics
 for testing homogeneity of variances: A comparative study. <em>Journal
-of Statistical Computation and Simulation</em>, 83, 1944–1963. <a href="https://doi.org/10.1080/00949655.2012.675336" class="external-link uri">https://doi.org/10.1080/00949655.2012.675336</a></p>
+of Statistical Computation and Simulation</em>, 83, 1944–1963. <br><a href="https://doi.org/10.1080/00949655.2012.675336" class="external-link uri">https://doi.org/10.1080/00949655.2012.675336</a></p>
 <p>’t Lam, R. U. E. (2010). Scrutiny of variance results for outliers:
 Cochran’s test optimized. <em>Analytica Chimica Acta</em>, 659(1–2),
 68–84. <a href="https://doi.org/10.1016/j.aca.2009.11.032" class="external-link uri">https://doi.org/10.1016/j.aca.2009.11.032</a></p>
 <p>Zhou, Y., Zhu, Y., &amp; Wong, W. K. (2023). Statistical tests for
 homogeneity of variance for clinical trials and recommendations.
-<em>Contemporary Clinical Trials Communications</em>, 33, 101119. <a href="https://doi.org/10.1016/j.conctc.2023.101119" class="external-link uri">https://doi.org/10.1016/j.conctc.2023.101119</a></p>
+<em>Contemporary Clinical Trials Communications</em>, 33, 101119. <br><a href="https://doi.org/10.1016/j.conctc.2023.101119" class="external-link uri">https://doi.org/10.1016/j.conctc.2023.101119</a></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
